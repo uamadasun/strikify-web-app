@@ -20,7 +20,7 @@ services:
         sync: false
       - key: DATABASE_HOST
         fromDatabase:
-          name: strapi
+          name: strikify-dev
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
@@ -29,6 +29,3 @@ services:
       - key: APP_KEYS
         generateValue: true
 
-databases:
-  - name: strikify-dev
-    plan: free
