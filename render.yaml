@@ -29,3 +29,6 @@ services:
       - key: APP_KEYS
         generateValue: true
 
+databases:
+  - name: strapi
+    plan: free
