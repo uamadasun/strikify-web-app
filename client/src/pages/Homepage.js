@@ -1,7 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { getToken } from '../helpers';
+import { API, BEARER } from '../constant';
+import { useAuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 
 const Homepage = () => {
+    const navigate = useNavigate();
+    const { user, setUser } = useAuthContext();
+    const [loading, setLoading] = useState(false);
+    // If user is already logged in, redirect to user dashboard
+  useEffect(() => {
+    if (getToken()) {
+      axios
+      .get(
+        `${API}/users/me`,
+        {
+          headers: {
+            Authorization: `${BEARER} ${getToken()}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUser(res.data)
+      console.log("user from if statement on registration page: ", res.data);
+      navigate(`/dashboard/${res.data.id}`);
+    })
+    }
+    console.log("API END POINT: ", API);
+  }, [navigate, setUser]);
 
 
       return (
@@ -32,18 +60,18 @@ const Homepage = () => {
                 Turn your phone into a point of sale powered by the Bitcoin Lightning network.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                    href="#"
+                <Link
+                to={'/login'}
                     className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
                   >
                     Login
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                  to={'/registration'}
                     className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
                   >
                     Sign Up Free
-                  </a>
+                  </Link>
 
                   
                   
