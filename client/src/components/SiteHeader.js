@@ -14,12 +14,12 @@ const SiteHeader = ({ children }) => {
     const { setUser } = useAuthContext();
     const navigate = useNavigate();
 
-  // const navigation = [
-  //   { name: 'Product', href: '#' },
-  //   { name: 'Features', href: '#' },
-  //   { name: 'Marketplace', href: '#' },
-  //   { name: 'Company', href: '#' },
-  // ]
+  const navigation = [
+    { name: 'Profile', href: '#' },
+    { name: 'Add Shop', href: '#' },
+    // { name: 'Marketplace', href: '#' },
+    // { name: 'Company', href: '#' },
+  ]
   const handleLogout = () => {
     removeToken();
     setUser(null);
@@ -51,13 +51,18 @@ const SiteHeader = ({ children }) => {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          {/* <div className="hidden lg:flex lg:gap-x-12">
+
+          {getToken() ? 
+          <>
+          <div className="hidden lg:flex lg:gap-x-12">
                 {navigation.map((item) => (
                   <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
                     {item.name}
                   </a>
                 ))}
-              </div> */}
+              </div>
+          </> : ''}
+          
         </nav>
         <Dialog
           as="div"
@@ -66,7 +71,7 @@ const SiteHeader = ({ children }) => {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-3/4 overflow-y-auto bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white">
             <div className="flex items-center justify-between">
               <Link to={'/'} className="-m-1.5 p-1.5">
                 <span className="sr-only">Strikify</span>
@@ -83,7 +88,9 @@ const SiteHeader = ({ children }) => {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-white-500/10">
-                {/* <div className="space-y-2 py-6">
+                {getToken() ? 
+                <>
+                <div className="space-y-2 py-6">
                       {navigation.map((item) => (
                         <a
                           key={item.name}
@@ -93,7 +100,11 @@ const SiteHeader = ({ children }) => {
                           {item.name}
                         </a>
                       ))}
-                    </div> */}
+                    </div>
+                </> 
+                :
+                ''}
+                
                 <div className="py-6">
                   <Link
                   to={'/login'}

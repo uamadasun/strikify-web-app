@@ -16,6 +16,7 @@ const Registration = () => {
 
   // If user is already logged in, redirect to user dashboard
   useEffect(() => {
+    console.log(strikeToken)
     if (getToken()) {
       axios
       .get(
@@ -33,7 +34,7 @@ const Registration = () => {
     })
     }
     console.log("API END POINT: ", API);
-  }, [navigate, setUser]);
+  }, [navigate, setUser, strikeToken]);
 
   //handle form changing
   const handleInputChange = (e) => {
@@ -71,9 +72,7 @@ const Registration = () => {
             })
             .catch((err) => {
               console.log(err.response);
-              // console.log(`You've hit an error!`)
               setError("Username is already taken. Sign in or try again.")
-              // console.log(err.response.data.error.message)
             });
         }
         else{
@@ -126,12 +125,7 @@ const Registration = () => {
                 id="email"
                 name="email"
                 type="hidden"
-                // autoComplete="email"
-                value='random_email@gmail.com'
-                
-                className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-300 sm:text-sm sm:leading-6"
-                // onChange={handleInputChange}
-                
+                className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-300 sm:text-sm sm:leading-6"                
               />
             </div>
           </div>
