@@ -11,7 +11,7 @@ const Registration = () => {
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [initialUser, setInitialUser] = useState({email: 'null@gmail.com'});
+  const [initialUser, setInitialUser] = useState({});
 
   // If user is already logged in, redirect to user dashboard
   useEffect(() => {
@@ -118,16 +118,23 @@ const Registration = () => {
             </div>
           </div>
 
-          {/* <div>
+          <div>
+          <label
+              htmlFor="email"
+              className="block text-md font-semibold mt-3 leading-6 text-white"
+            >
+              Email Address
+            </label>
             <div className="mt-2">
               <input
                 id="email"
                 name="email"
-                type="hidden"
+                type="email"
+                required
                 className="block w-full pl-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-300 sm:text-sm sm:leading-6"                
               />
             </div>
-          </div> */}
+          </div>
 
           <div>
             <div className="flex items-center justify-between">
