@@ -11,7 +11,7 @@ const Login = () => {
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [initialUser, setInitialUser] = useState({ email: "null@email.com" });
+  const [initialUser, setInitialUser] = useState({});
 
   //   Check if user is already logged in; if so, redirect to user's dashboard
   useEffect(() => {
@@ -123,7 +123,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <div className="mt-2">
               <input
                 id="email"
@@ -137,7 +137,7 @@ const Login = () => {
                 
               />
             </div>
-          </div>
+          </div> */}
 
           <div>
             <button
