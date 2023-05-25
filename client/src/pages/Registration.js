@@ -35,7 +35,7 @@ const Registration = () => {
     console.log("STRIKE: ", STRIKE)
   }, [navigate, setUser]);
 
-  //handle form changing
+  //handle form inputs changing
   const handleInputChange = (e) => {
     setInitialUser({
       ...initialUser,
