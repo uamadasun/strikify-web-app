@@ -71,7 +71,7 @@ const Registration = () => {
             })
             .catch((err) => {
               console.log(err.response);
-              setError("Username is already taken. Sign in or try again.")
+              setError("Username is already taken. Sign in or try again")
             });
         }
         else{
