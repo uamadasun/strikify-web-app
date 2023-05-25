@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { API, BEARER } from "../constant";
+import { API, BEARER, STRIKE } from "../constant";
 import { getToken, setToken } from "../helpers";
 import axios from "axios";
 import '../styles/Login.css'
@@ -12,11 +12,9 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [initialUser, setInitialUser] = useState({email:'null@email.com'});
-  const strikeToken = process.env.REACT_APP_STRIKE_API_KEY;
 
   // If user is already logged in, redirect to user dashboard
   useEffect(() => {
-    console.log(strikeToken)
     if (getToken()) {
       axios
       .get(
@@ -34,7 +32,8 @@ const Registration = () => {
     })
     }
     console.log("API END POINT: ", API);
-  }, [navigate, setUser, strikeToken]);
+    console.log("STRIKE: ", STRIKE)
+  }, [navigate, setUser]);
 
   //handle form changing
   const handleInputChange = (e) => {
@@ -48,13 +47,13 @@ const Registration = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // console.log(strikeToken)
+    
     let config = {
       method: "get",
       url: `https://api.strike.me/v1/accounts/handle/${initialUser.username}/profile`,
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${strikeToken}`,
+        Authorization: `Bearer ${STRIKE}`,
       },
     };
 
