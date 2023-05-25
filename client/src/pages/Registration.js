@@ -11,7 +11,7 @@ const Registration = () => {
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [initialUser, setInitialUser] = useState({email:'null@email.com'});
+  const [initialUser, setInitialUser] = useState({});
 
   // If user is already logged in, redirect to user dashboard
   useEffect(() => {
@@ -35,7 +35,7 @@ const Registration = () => {
     console.log("STRIKE: ", STRIKE)
   }, [navigate, setUser]);
 
-  //handle form inputs changing
+  //handle registration form inputs changing
   const handleInputChange = (e) => {
     setInitialUser({
       ...initialUser,
@@ -43,7 +43,7 @@ const Registration = () => {
     });
   };
 
-  //form submit handler
+  //registration form submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
