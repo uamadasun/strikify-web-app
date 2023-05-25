@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API, BEARER } from "../constant";
@@ -27,11 +27,11 @@ const Login = () => {
       )
       .then((res) => {
         setUser(res.data)
-      console.log("user from if statement on login page: ", res.data);
+      // console.log("user from if statement on login page: ", res.data);
       navigate(`/dashboard/${res.data.id}`);
     })
     }
-    console.log("API END POINT: ", API);
+    // console.log("API END POINT: ", API);
   }, [navigate, setUser]);
 
   // Setting login information

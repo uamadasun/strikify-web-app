@@ -1,0 +1,25 @@
+.profile-pic{
+    display: block;
+    /* margin-top: 20px; */
+    /* border: 20px solid red; */
+    background-color: black;
+    min-height: 100vh;
+    position: relative;
+    top: 150px;
+}
+
+
+
+.center-crop {
+    width: 200px;
+    height: 200px;
+    /* background-image: url('https://images.unsplash.com/photo-1569878698889-7bffa1896872?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'); */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+    
+    /* object-position: center; */
+    /* margin-top: 10px; */
+  }
+

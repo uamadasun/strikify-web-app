@@ -41,7 +41,7 @@ const SiteHeader = ({ children }) => {
             </Link>
           </div>
           <div className="flex lg:hidden">
-            {getToken() ? <button onClick={handleLogout}>Logout</button> : ""}
+            {/* {getToken() ? <button onClick={handleLogout}>Logout</button> : ""} */}
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
@@ -60,6 +60,7 @@ const SiteHeader = ({ children }) => {
                     {item.name}
                   </a>
                 ))}
+                {getToken() ? <button onClick={handleLogout} className="text-yellow-300 font-semibold">Logout</button> : ""}
               </div>
           </> : ''}
           
@@ -100,6 +101,8 @@ const SiteHeader = ({ children }) => {
                           {item.name}
                         </a>
                       ))}
+                      {getToken() ? <button onClick={handleLogout} className="text-yellow-300 font-semibold">Logout</button> : ""}
+                      
                     </div>
                 </> 
                 :

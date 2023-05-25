@@ -24,11 +24,11 @@ const Homepage = () => {
       )
       .then((res) => {
         setUser(res.data)
-      console.log("user from if statement on registration page: ", res.data);
+      // console.log("user from if statement on registration page: ", res.data);
       navigate(`/dashboard/${res.data.id}`);
     })
     }
-    console.log("API END POINT: ", API);
+    // console.log("API END POINT: ", API);
   }, [navigate, setUser]);
 
 
