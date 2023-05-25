@@ -11,7 +11,7 @@ const Registration = () => {
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [initialUser, setInitialUser] = useState({});
+  const [initialUser, setInitialUser] = useState({email: 'null@gmail.com'});
 
   // If user is already logged in, redirect to user dashboard
   useEffect(() => {
