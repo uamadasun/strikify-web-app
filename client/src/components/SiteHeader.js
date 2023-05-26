@@ -11,7 +11,7 @@ import { getToken, removeToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 
 const SiteHeader = ({ children }) => {
-    const { user, setUser } = useAuthContext();
+    const { setUser } = useAuthContext();
     const navigate = useNavigate();
 
   const navigation = [
@@ -35,7 +35,7 @@ const SiteHeader = ({ children }) => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <Link to={getToken() ? `/dashboard/${user.id}` :'/'} className="-m-1.5 p-1.5">
+            <Link to='/' className="-m-1.5 p-1.5">
               <span className="sr-only">Strikify</span>
               <img className="h-10 w-10" src={Lightning} alt="" />
             </Link>
