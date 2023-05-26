@@ -61,7 +61,7 @@ const Registration = () => {
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
+        // setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
         if (initialUser.password === initialUser.confirm_password) {
           axios
             .post(`${API}/auth/local/register`, initialUser)

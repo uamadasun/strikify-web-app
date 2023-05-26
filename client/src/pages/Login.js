@@ -46,7 +46,7 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
+    // setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
     axios
       .post(`${API}/auth/local`, initialUser)
       .then((res) => {
