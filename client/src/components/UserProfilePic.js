@@ -34,7 +34,7 @@ const UserProfilePic = (props) => {
     
       })
   return (
-    <div className="profile-pic">
+    <div>
         <img className='mx-auto mb-5 rounded-full center-crop' src={picURL} height={'50px'} alt={'strike profile pic'}/>
         <h1 className='text-center text-white text-3xl username'>{user.username}</h1>
     </div>
