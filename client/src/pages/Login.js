@@ -36,10 +36,20 @@ const Login = () => {
 
   // Setting login information
   const handleInputChange = (e) => {
-    setInitialUser({
-      ...initialUser,
-      [e.target.name]: e.target.value,
-    });
+
+    // change username to lowercase d/t mobile default to uppercase
+    if (e.target.name === 'username'){
+      setInitialUser({
+        ...initialUser,
+        [e.target.name]: e.target.value.toLowerCase()
+      });
+    }
+    else{
+      setInitialUser({
+        ...initialUser,
+        [e.target.name]: e.target.value
+      });
+    }
   };
 
   //Form submit handler
@@ -54,7 +64,7 @@ const Login = () => {
         setUser(res.data);
         setToken(res.data.jwt);
 
-        console.log("getting token from login submit handler: ", getToken());
+        // console.log("getting token from login submit handler: ", getToken());
         navigate(`/dashboard/${res.data.id}`, { replace: true });
       })
       .catch((err) => {

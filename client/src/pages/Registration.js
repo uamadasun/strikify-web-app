@@ -27,27 +27,32 @@ const Registration = () => {
       )
       .then((res) => {
         setUser(res.data)
-      console.log("user from if statement on registration page: ", res.data);
       navigate(`/dashboard/${res.data.id}`);
     })
     }
-    console.log("API END POINT: ", API);
-    console.log("STRIKE: ", STRIKE)
   }, [navigate, setUser]);
 
   //handle registration form inputs changing
   const handleInputChange = (e) => {
-    setInitialUser({
-      ...initialUser,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === 'username'){
+      setInitialUser({
+        ...initialUser,
+        [e.target.name]: e.target.value.toLowerCase()
+      });
+    }
+    else{
+      setInitialUser({
+        ...initialUser,
+        [e.target.name]: e.target.value
+      });
+    }
   };
 
   //registration form submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    // console.log('Initial user lowercase: ', initialUser)
     setLoading(true);
-    console.log(initialUser)
     
     let config = {
       method: "get",
@@ -60,7 +65,7 @@ const Registration = () => {
 
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         // setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
         if (initialUser.password === initialUser.confirm_password) {
           axios

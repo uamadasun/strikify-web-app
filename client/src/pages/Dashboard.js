@@ -10,8 +10,8 @@ import '../styles/Dashboard.css'
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuthContext();
-//   const [loading, setLoading] = useState(false);
-// const [profilePic, setProfilePic] = useState('')
+  const [shops, setShops] = useState([])
+
 
   
   
