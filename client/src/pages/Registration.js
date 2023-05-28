@@ -72,13 +72,14 @@ const Registration = () => {
             .post(`${API}/auth/local/register`, initialUser)
             .then((res) => {
                 console.log("user registered")
+                setLoading(true)
               setUser(res.data);
               setToken(res.data.jwt);
               navigate(`/dashboard/${res.data.user.id}`, { replace: true });
             })
             .catch((err) => {
               console.log(err.response);
-              setError("Username is already taken. Sign in or try again")
+              setError(err.response.data.error.message)
             });
         }
         else{
@@ -89,6 +90,7 @@ const Registration = () => {
         console.log(error);
         setError("Strike account not found. Try again.")
       });
+      setLoading(false)
   };
 
   return (
@@ -100,13 +102,13 @@ const Registration = () => {
       </div>
       <div className="text-center">
       <p>A Strike username is required to register.</p>
-      <p>Don't have a Strike account? Register for one <a href="https://strike.me/download/" target="_blank"> <span className="text-yellow-300 font-semibold">HERE</span>.</a></p>
+      <p className="mb-3">Don't have a Strike account? Register for one <a href="https://strike.me/download/" target="_blank"> <span className="text-yellow-300 font-semibold">HERE</span>.</a></p>
       </div>
       
 
-      <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-2" onSubmit={onSubmitHandler}>
-          {error ? <p className="error">{error}</p> 
+          {error ? <p className="error font-semibold">{error}</p> 
           
           : ""}
 
@@ -203,7 +205,7 @@ const Registration = () => {
               type="submit"
               className=" mx-auto my-5 block rounded-md bg-yellow-300 px-7 py-2.5 text-sm font-semibold leading-7 text-black shadow-sm hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300"
             >
-              Register
+              {loading ? 'Please wait...' : 'Register'}
             </button>
           </div>
         </form>

@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState('');
   const [initialUser, setInitialUser] = useState({});
 
   //   Check if user is already logged in; if so, redirect to user's dashboard
@@ -55,12 +55,13 @@ const Login = () => {
   //Form submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    
     // setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
     axios
       .post(`${API}/auth/local`, initialUser)
       .then((res) => {
         // setLogged(res.data);
+        setLoading(true);
         setUser(res.data);
         setToken(res.data.jwt);
 
@@ -69,8 +70,9 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err.response);
-        // console.log(`You've hit an error!`)
+        setError(err.response.data.error.message)
       });
+    setLoading(false)
   };
 
   return (
@@ -81,9 +83,9 @@ const Login = () => {
         </h2>
       </div>
 
-      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={onSubmitHandler}>
-          {error ? error : ""}
+          {error ? <p className="error font-semibold">{error}. Try again.</p> : ""}
           <div>
             <label
               htmlFor="identifier"
@@ -155,7 +157,7 @@ const Login = () => {
               type="submit"
               className="mx-auto my-5 block rounded-lg px-7 py-2.5 text-base font-semibold leading-7 bg-yellow-300 text-black hover:text-black hover:bg-zinc-300"
             >
-              Sign in
+              {loading ? "Logging in..." : 'Sign in'}
             </button>
           </div>
         </form>
