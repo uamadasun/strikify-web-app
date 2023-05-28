@@ -1,6 +1,5 @@
-.dash-content{
+.dashboard-content{
     display: block;
-    /* background-color: white; */
     min-height: 100vh;
 }
 .profile-pic{
@@ -8,6 +7,8 @@
     /* margin-top: 20px; */
     /* border: 20px solid red; */
     /* background-color: red; */
+    background-color: black;
+
     position: relative;
     top: 150px;
 }

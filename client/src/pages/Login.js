@@ -69,7 +69,7 @@ const Login = () => {
         navigate(`/dashboard/${res.data.id}`, { replace: true });
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
         setError(err.response.data.error.message)
       });
     setLoading(false)
