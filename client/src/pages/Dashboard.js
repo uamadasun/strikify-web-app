@@ -6,11 +6,11 @@ import { getToken } from "../helpers";
 import axios from "axios";
 import UserProfilePic from "../components/UserProfilePic";
 import "../styles/Dashboard.css";
-import shopLogo from '../assets/shop.png';
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuthContext();
+  const { user } = useAuthContext();
   const [shops, setShops] = useState([]);
 
   useEffect(() => {
@@ -40,27 +40,34 @@ const Dashboard = () => {
       </div>
 
       {shops.length >= 0 ? (
-        <div className='mx-40'>
-        <div className="block md:flex mt-60 justify-center lg:flex">
-            
-          {shops.map((shop) => (
-            <div
-              key={shop.id}
-              className="max-w-200 bg-white rounded overflow-hidden shadow-lg m-2 min-w-150 "
-            >
-              
-              <div className="px-6 py-2">
-                <div className="font-bold text-center text-xl mb-2 text-slate-800">{shop.attributes.shop_name}</div>
-                
-              </div>
-              <div className="px-6 pt-0  pb-2  flex-col text-black text-center mb-5 text-xl">
-                <p><Link className="hover:text-yellow-400 hover:font-black">Create Order</Link></p>
-                <p><Link className="hover:text-yellow-400 hover:font-black">Edit Inventory</Link></p>
-                
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className=" bg-black mt-40 max-w-md mx-auto">
+          <ul className="divide-y divide-white/5">
+            {shops.map((shop) => (
+              <Link to={`/shops/${shop.id}`}>
+                <li
+                  key={shop.id}
+                  className=" relative flex items-center space-x-4 py-4"
+                >
+                  <div className="min-w-0  flex-auto">
+                    <div className="flex items-center gap-x-3">
+                      <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
+                        <Link to={`/shops/${shop.id}`} className="flex gap-x-2">
+                          <span className="truncate">
+                            {shop.attributes.shop_name}
+                          </span>
+                        </Link>
+                      </h2>
+                    </div>
+                  </div>
+
+                  <ChevronRightIcon
+                    className="h-5 w-5 flex-none text-gray-400"
+                    aria-hidden="true"
+                  />
+                </li>
+              </Link>
+            ))}
+          </ul>
         </div>
       ) : (
         <>

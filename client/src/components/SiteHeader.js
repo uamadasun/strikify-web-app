@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Logo from "../assets/logo.png";
+// import Logo from "../assets/logo.png";
 import LogoWhite from "../assets/logo-white.png";
 import Lightning from "../assets/lightning.png";
 import Footer from "./Footer";
@@ -16,9 +16,7 @@ const SiteHeader = ({ children }) => {
 
   const navigation = [
     { name: 'Profile', href: '#' },
-    { name: 'Add Shop', href: '#' },
-    // { name: 'Marketplace', href: '#' },
-    // { name: 'Company', href: '#' },
+    { name: 'Add New Shop', href: '#' },
   ]
   const handleLogout = () => {
     removeToken();
@@ -106,9 +104,7 @@ const SiteHeader = ({ children }) => {
                     </div>
                 </> 
                 :
-                ''}
                 
-                {!getToken() ? 
                 <>
                 <div className="py-6">
                   
@@ -126,10 +122,9 @@ const SiteHeader = ({ children }) => {
                   </Link>
                 </div>
                 
-                </>  
-                :
-                ''
-              }
+                </>}
+                
+                
                 
               </div>
             </div>
