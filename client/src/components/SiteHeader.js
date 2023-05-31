@@ -16,7 +16,7 @@ const SiteHeader = ({ children }) => {
 
   const navigation = [
     { name: 'Profile', href: user ? `dashboard/${user.id}`: '#' },
-    { name: 'Add New Shop', href: '#' },
+    
   ]
   const handleLogout = () => {
     removeToken();
