@@ -11,11 +11,11 @@ import { getToken, removeToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 
 const SiteHeader = ({ children }) => {
-    const { setUser } = useAuthContext();
+    const { user, setUser } = useAuthContext();
     const navigate = useNavigate();
 
   const navigation = [
-    { name: 'Profile', href: '#' },
+    { name: 'Profile', href: user ? `dashboard/${user.id}`: '#' },
     { name: 'Add New Shop', href: '#' },
   ]
   const handleLogout = () => {
@@ -33,7 +33,7 @@ const SiteHeader = ({ children }) => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <Link to='/' className="-m-1.5 p-1.5">
+            <Link to= {user ? `dashboard/${user.id}` : '/'} className="-m-1.5 p-1.5">
               <span className="sr-only">Strikify</span>
               <img className="h-10 w-10" src={Lightning} alt="" />
             </Link>
@@ -91,13 +91,12 @@ const SiteHeader = ({ children }) => {
                 <>
                 <div className="space-y-2 py-6">
                       {navigation.map((item) => (
-                        <a
+                        <Link to={item.href}
                           key={item.name}
-                          href={item.href}
                           className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-black"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                       {getToken() ? <button onClick={handleLogout} className="text-yellow-300 font-semibold">Logout</button> : ""}
                       

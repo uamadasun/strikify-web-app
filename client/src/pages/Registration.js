@@ -51,6 +51,7 @@ const Registration = () => {
   //registration form submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    
     // console.log('Initial user lowercase: ', initialUser)
     setLoading(true);
     
@@ -72,7 +73,7 @@ const Registration = () => {
             .post(`${API}/auth/local/register`, initialUser)
             .then((res) => {
                 console.log("user registered")
-                setLoading(true)
+                
               setUser(res.data);
               setToken(res.data.jwt);
               navigate(`/dashboard/${res.data.user.id}`, { replace: true });

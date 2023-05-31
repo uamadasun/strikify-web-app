@@ -55,13 +55,14 @@ const Login = () => {
   //Form submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     
     // setInitialUser({...initialUser, username: initialUser.username.toLowerCase()})
     axios
       .post(`${API}/auth/local`, initialUser)
       .then((res) => {
         // setLogged(res.data);
-        setLoading(true);
+        
         setUser(res.data);
         setToken(res.data.jwt);
 
@@ -157,7 +158,7 @@ const Login = () => {
               type="submit"
               className="mx-auto my-5 block rounded-lg px-7 py-2.5 text-base font-semibold leading-7 bg-yellow-300 text-black hover:text-black hover:bg-zinc-300"
             >
-              {loading ? "Logging in..." : 'Sign in'}
+              {loading ? "Signing in..." : 'Sign in'}
             </button>
           </div>
         </form>
