@@ -56,17 +56,14 @@ const Login = () => {
     axios
       .post(`${API}/auth/local`, initialUser)
       .then((res) => {
-        // setLogged(res.data);
-
-        setUser(res.data);
+        setUser(res.data.user);
         setToken(res.data.jwt);
 
-        // console.log("getting token from login submit handler: ", getToken());
-        navigate(`/dashboard/${res.data.id}`, { replace: true });
+        navigate(`/dashboard/${res.data.user.id}`, { replace: true });
       })
       .catch((err) => {
         // console.log(err.response);
-        setError(err.response.data.error.message);
+        // setError(err.response.data.error.message);
       });
     setLoading(false);
   };
@@ -167,7 +164,11 @@ const Login = () => {
             <button
               disabled
               type="button"
-              className={loading ? " mx-auto py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-500 focus:z-10 focus:ring-4 focus:outline-none focus:ring-yellow-300 focus:text-yellow-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center" : 'hidden'}
+              className={
+                loading
+                  ? " mx-auto py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-500 focus:z-10 focus:ring-4 focus:outline-none focus:ring-yellow-300 focus:text-yellow-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center"
+                  : "hidden"
+              }
             >
               <svg
                 aria-hidden="true"
