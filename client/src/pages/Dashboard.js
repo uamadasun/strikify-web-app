@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { API, BEARER, STRIKE } from "../constant";
@@ -7,11 +7,13 @@ import axios from "axios";
 import UserProfilePic from "../components/UserProfilePic";
 import "../styles/Dashboard.css";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import NewShopButton from "../components/NewShopButton";
+import { ShopContext } from "../App";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
-  const [shops, setShops] = useState([]);
+  const [shops, setShops] = useContext(ShopContext);
 
   useEffect(() => {
     if (user) {
@@ -25,6 +27,7 @@ const Dashboard = () => {
         .then((res) => {
           setShops(res.data.data);
           console.log("Shops: ", res.data.data);
+          console.log(res.data.data.length);
           //   navigate(`/dashboard/${res.data.id}`);
         });
     }
@@ -38,42 +41,55 @@ const Dashboard = () => {
       <div className="profile-pic">
         <UserProfilePic username={user.username} />
       </div>
-
-      {shops.length >= 0 ? (
-        <div className=" bg-black mt-40 max-w-md mx-auto">
-          <ul className="divide-y divide-white/5">
-            {shops.map((shop) => (
-              <Link to={`/shops/${shop.id}`}>
-                <li
-                  key={shop.id}
-                  className=" relative flex items-center space-x-4 py-4"
-                >
-                  <div className="min-w-0  flex-auto">
-                    <div className="flex items-center gap-x-3">
-                      <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
-                        <Link to={`/shops/${shop.id}`} className="flex gap-x-2">
-                          <span className="truncate">
-                            {shop.attributes.shop_name}
-                          </span>
-                        </Link>
-                      </h2>
+      <div className="mt-40 ">
+        {shops.length > 0 ? (
+          <div className=" bg-black mt-40 max-w-md mx-auto">
+            <ul className="divide-y divide-white/5">
+              {shops.map((shop) => (
+                <Link to={`/shops/${shop.id}`} key={shop.id}>
+                  <li
+                    
+                    className=" relative flex items-center space-x-4 py-4"
+                  >
+                    <div className="min-w-0  flex-auto">
+                      <div className="flex items-center gap-x-3">
+                        <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
+                          <Link
+                            to={`/shops/${shop.id}`}
+                            className="flex gap-x-2"
+                          >
+                            <span className="truncate">
+                              {shop.attributes.shop_name}
+                            </span>
+                          </Link>
+                        </h2>
+                      </div>
                     </div>
-                  </div>
 
-                  <ChevronRightIcon
-                    className="h-5 w-5 flex-none text-gray-400"
-                    aria-hidden="true"
-                  />
-                </li>
-              </Link>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <>
-          <p className="text-white">Nothing to show here</p>
-        </>
-      )}
+                    <ChevronRightIcon
+                      className="h-5 w-5 flex-none text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </li>
+                </Link>
+              ))}
+            </ul>
+            <div className="mx-auto rounded-lg"> <NewShopButton/></div>
+            
+          </div>
+        ) : (
+          <div className="new-text text-center mt-50">
+            <div
+              className="px-4 py-3 leading-normal text-black bg-white rounded-lg w-1/2 mx-auto"
+              role="alert"
+            >
+              <p className="mb-3">You don't have any shops.</p>
+              <NewShopButton />
+            </div>
+            
+          </div>
+        )}
+      </div>
     </div>
   );
 };

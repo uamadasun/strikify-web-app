@@ -34,9 +34,7 @@
     /* margin-top: 10px; */
   }
 
-button {
-    /* background-color: white; */
-    /* color: red; */
-    /* z-index: 1; */
-}
+  .new-text h2{
+    font-family: 'Montserrat', sans-serif !important;
+  }
 
