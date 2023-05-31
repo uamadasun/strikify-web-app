@@ -13,27 +13,31 @@ import { ShopContext } from "../App";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const [loading, setLoading] = useState(false);
   const [shops, setShops] = useContext(ShopContext);
+
+  const fetchShops = async () => {
+    setLoading(true);
+
+    await axios
+      .get(`${API}/shops?filters[shop_owner][$eq]=${user.username}`, {
+        headers: {
+          Authorization: `${BEARER} ${getToken()}`,
+        },
+      })
+      .then(async (res) => {
+        await setShops(res.data.data);
+      });
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (user) {
-      //   console.log("my user: ", user);
-      axios
-        .get(`${API}/shops?filters[shop_owner][$eq]=${user.username}`, {
-          headers: {
-            Authorization: `${BEARER} ${getToken()}`,
-          },
-        })
-        .then((res) => {
-          setShops(res.data.data);
-          console.log("Shops: ", res.data.data);
-          console.log(res.data.data.length);
-          //   navigate(`/dashboard/${res.data.id}`);
-        });
+      fetchShops();
     }
-  }, [user]);
+  }, []);
 
-  if (!user) {
+  if (!user || (user && loading)) {
     return "Loading...";
   }
   return (
@@ -47,10 +51,7 @@ const Dashboard = () => {
             <ul className="divide-y divide-white/5">
               {shops.map((shop) => (
                 <Link to={`/shops/${shop.id}`} key={shop.id}>
-                  <li
-                    
-                    className=" relative flex items-center space-x-4 py-4"
-                  >
+                  <li className=" relative flex items-center space-x-4 py-4">
                     <div className="min-w-0  flex-auto">
                       <div className="flex items-center gap-x-3">
                         <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
@@ -74,8 +75,10 @@ const Dashboard = () => {
                 </Link>
               ))}
             </ul>
-            <div className="mx-auto rounded-lg"> <NewShopButton/></div>
-            
+            <div className="mx-auto rounded-lg">
+              {" "}
+              <NewShopButton />
+            </div>
           </div>
         ) : (
           <div className="new-text text-center mt-50">
@@ -86,7 +89,6 @@ const Dashboard = () => {
               <p className="mb-3">You don't have any shops.</p>
               <NewShopButton />
             </div>
-            
           </div>
         )}
       </div>
