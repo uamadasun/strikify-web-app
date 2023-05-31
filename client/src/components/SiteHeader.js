@@ -15,7 +15,7 @@ const SiteHeader = ({ children }) => {
     const navigate = useNavigate();
 
   const navigation = [
-    { name: 'Profile', href: user ? `dashboard/${user.id}`: '#' },
+    { name: 'Profile', href: user ? `/dashboard/${user.id}`: '#' },
     
   ]
   const handleLogout = () => {
