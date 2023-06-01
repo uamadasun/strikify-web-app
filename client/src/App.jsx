@@ -9,8 +9,8 @@ import { useAuthContext } from "./context/AuthContext";
 import axios from "axios";
 import { API, BEARER } from "./constant";
 import { getToken } from "./helpers";
-import NewShopSuccess from "./pages/NewShopSuccess";
 import ShopPage from "./pages/ShopPage";
+import Background from "./components/Background";
 export const ShopContext = createContext();
 
 function App() {
@@ -33,7 +33,9 @@ function App() {
   return (
     <div className="App">
       
+      
       <SiteHeader>
+      
         {/* <h1>hello</h1> */}
         <ShopContext.Provider value={[shops, setShops]}>
         <Routes>
@@ -41,11 +43,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="registration" element={<Registration />} />
           <Route path="dashboard/:id" element={<Dashboard />}/>
-          <Route path="success/shop" element={<NewShopSuccess />}/>
           <Route path="shops/:id" element={<ShopPage />}/>
         </Routes>
         </ShopContext.Provider>
+        
       </SiteHeader>
+      
       
     </div>
   );
