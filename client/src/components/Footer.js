@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div>
       <footer
-        class="bg-black
+        class="
              text-xs text-white text-center
              
              fixed

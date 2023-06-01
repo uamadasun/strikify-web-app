@@ -3,19 +3,18 @@ import { API, BEARER } from "../constant";
 import axios from "axios";
 import { getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
-import {shops, setShops } from '../pages/Dashboard'
+import { shops, setShops } from "../pages/Dashboard";
 import { ShopContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
 const NewShopForm = (props) => {
-    const {displayForm, setDisplayForm} = props;
+  const { displayForm, setDisplayForm } = props;
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
 
-  const [shop, setShop] = useState({shop_owner:user.username});
+  const [shop, setShop] = useState({ shop_owner: user.username });
   const [shops, setShops] = useContext(ShopContext);
   const navigate = useNavigate();
-
 
   // form handler for new shop
   const handleInputChange = (e) => {
@@ -29,13 +28,19 @@ const NewShopForm = (props) => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(`${API}/shops`,{data: shop}, {headers: {
-        Authorization:`Bearer ${getToken()}`
-      }})
+      .post(
+        `${API}/shops`,
+        { data: shop },
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+          },
+        }
+      )
       .then((res) => {
         // console.log(res);
-        setShops({...shops, res})
-        navigate(`/shops/${res.data.data.id}`)
+        setShops({ ...shops, res });
+        navigate(`/shops/${res.data.data.id}`);
       })
       .catch((err) => {
         console.log(err.response);
@@ -48,7 +53,6 @@ const NewShopForm = (props) => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={onSubmitHandler}>
           <div>
-            
             <div className="mt-2">
               <input
                 id="shop_name"
@@ -63,19 +67,33 @@ const NewShopForm = (props) => {
             </div>
           </div>
 
-          <div className="flex mx-auto w-1/2 justify-center align-middle gap-2">
+          <div className="flex mx-auto w-3/4 justify-center align-middle gap-2">
             <button
               type="submit"
               className={
                 loading
                   ? "hidden"
-                  : "btn block rounded-lg px-auto py-auto text-base font-semibold leading-7 bg-yellow-300 text-black hover:text-black hover:bg-zinc-300"
+                  : "relative inline-block px-4 py-2 font-medium group w-1/2"
               }
             >
-              Create Shop
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-yellow-300 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-yellow-300"></span>
+              <span className="relative text-black font-semibold group-hover:text-black">
+                Create Shop
+              </span>
             </button>
-            <button onClick={()=>{setDisplayForm(!displayForm)}} className="btn block rounded-lg px-auto py-auto text-base font-semibold leading-7">
-              Cancel
+
+            <button
+              onClick={() => {
+                setDisplayForm(!displayForm);
+              }}
+              className="relative inline-block px-4 py-2 font-medium group w-1/2"
+            >
+              <span className="absolute inset-0 transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute inset-0  bg-slate-300 border-2 border-black group-hover:bg-white"></span>
+              <span className="relative text-black font-semibold group-hover:text-black">
+                Cancel
+              </span>
             </button>
           </div>
         </form>

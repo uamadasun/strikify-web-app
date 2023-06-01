@@ -9,6 +9,7 @@ import "../styles/Dashboard.css";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import NewShopButton from "../components/NewShopButton";
 import { ShopContext } from "../App";
+import Loader from "../components/Loader";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -37,8 +38,10 @@ const Dashboard = () => {
     }
   }, []);
 
-  if (!user || (user && loading)) {
-    return "Loading...";
+  if (!user || loading) {
+    return <div>
+        <Loader/>
+    </div>;
   }
   return (
     <div className="dashboard-content">
