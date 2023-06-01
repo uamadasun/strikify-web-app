@@ -33,9 +33,9 @@ const NewShopForm = (props) => {
         Authorization:`Bearer ${getToken()}`
       }})
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setShops({...shops, res})
-        navigate(`/success/shop`)
+        navigate(`/shops/${res.data.data.id}`)
       })
       .catch((err) => {
         console.log(err.response);
@@ -61,16 +61,6 @@ const NewShopForm = (props) => {
                 onChange={handleInputChange}
               />
             </div>
-          </div>
-
-          <div>
-            <input
-              id="shop_owner"
-              name="shop_owner"
-              type="hidden"
-              required
-              value={user.username}
-            />
           </div>
 
           <div className="flex mx-auto w-1/2 justify-center align-middle gap-2">
