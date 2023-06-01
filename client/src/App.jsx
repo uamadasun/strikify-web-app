@@ -35,6 +35,7 @@ function App() {
       
       
       <SiteHeader>
+        <Background>
       
         {/* <h1>hello</h1> */}
         <ShopContext.Provider value={[shops, setShops]}>
@@ -46,6 +47,7 @@ function App() {
           <Route path="shops/:id" element={<ShopPage />}/>
         </Routes>
         </ShopContext.Provider>
+        </Background>
         
       </SiteHeader>
       
