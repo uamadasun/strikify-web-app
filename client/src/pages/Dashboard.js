@@ -47,7 +47,7 @@ const Dashboard = () => {
       </div>
       <div className="mt-40 ">
         {shops.length > 0 ? (
-          <div className=" bg-black mt-40 max-w-md mx-auto">
+          <div className="mt-40 max-w-md mx-auto">
             <ul className="divide-y divide-white/5">
               {shops.map((shop) => (
                 <Link to={`/shops/${shop.id}`} key={shop.id}>
