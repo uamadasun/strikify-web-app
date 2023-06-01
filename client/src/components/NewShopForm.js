@@ -50,9 +50,33 @@ const NewShopForm = (props) => {
 
   return (
     <div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm ">
+      
+
         <form className="space-y-6" onSubmit={onSubmitHandler}>
+        
           <div>
+          <button
+              onClick={() => {
+                setDisplayForm(!displayForm);
+              }}
+              className=" mx-auto my-0 hover:text-yellow-300 "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
             <div className="mt-2">
               <input
                 id="shop_name"
@@ -83,18 +107,7 @@ const NewShopForm = (props) => {
               </span>
             </button>
 
-            <button
-              onClick={() => {
-                setDisplayForm(!displayForm);
-              }}
-              className="relative inline-block px-4 py-2 font-medium group w-1/2"
-            >
-              <span className="absolute inset-0 transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-white group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-              <span className="absolute inset-0  bg-slate-300 border-2 border-black group-hover:bg-white"></span>
-              <span className="relative text-black font-semibold group-hover:text-black">
-                Cancel
-              </span>
-            </button>
+            
           </div>
         </form>
       </div>
