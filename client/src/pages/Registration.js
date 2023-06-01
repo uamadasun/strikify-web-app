@@ -1,15 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { API, BEARER, STRIKE } from "../constant";
 import { getToken, setToken } from "../helpers";
 import axios from "axios";
 import "../styles/Login.css";
-import Background from "../components/Background";
 
 const Registration = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [initialUser, setInitialUser] = useState({});
@@ -92,7 +91,7 @@ const Registration = () => {
 
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 login">
-      <Background>
+      
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-14 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Register for an account
@@ -182,11 +181,7 @@ const Registration = () => {
                 >
                   Confirm Password
                 </label>
-                {/* <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div> */}
+                
               </div>
               <div className="mt-2">
                 <input
@@ -221,7 +216,6 @@ const Registration = () => {
             </Link>
           </p>
         </div>
-      </Background>
     </div>
   );
 };

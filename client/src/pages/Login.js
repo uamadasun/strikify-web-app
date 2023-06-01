@@ -71,7 +71,7 @@ const Login = () => {
 
   return (
     <div className="flex  flex-1 flex-col justify-center px-6 py-12 lg:px-6 login">
-      <Background>
+      
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-6 tracking-tight text-white">
             Sign in to your account
@@ -188,7 +188,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
-      </Background>
+      
     </div>
   );
 };
