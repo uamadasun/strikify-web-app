@@ -86,7 +86,7 @@ const Dashboard = () => {
         ) : (
           <div className="new-text text-center mt-50">
             <div
-              className="px-4 py-3 leading-normal text-black bg-white rounded-lg w-1/2 mx-auto"
+              className="px-4 py-3 leading-normal text-whiterounded-lg w-1/2 mx-auto"
               role="alert"
             >
               <p className="mb-3">You don't have any shops.</p>
