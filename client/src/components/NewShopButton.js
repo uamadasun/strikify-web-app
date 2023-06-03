@@ -12,7 +12,7 @@ const NewShopButton = () => {
           className={
             displayForm
               ? "hidden"
-              : " mx-auto my-5 block rounded-md bg-yellow-300 px-7 py-2.5 text-sm font-semibold leading-7 text-black shadow-sm hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300"
+              : " btn btn-sm mx-auto my-5 block rounded-md bg-yellow-300 max-w-lg min-w-fit text-sm font-semibold leading-7 text-black shadow-sm hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300"
           }
         >
           Add a New Shop

@@ -117,14 +117,7 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="text-xs">
-                  <a
-                    href="#"
-                    className="font-semibold text-yellow-300 hover:text-slate-300"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                
               </div>
               <div className="mt-2">
                 <input
