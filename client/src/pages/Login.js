@@ -6,6 +6,7 @@ import { API, BEARER } from "../constant";
 import { setToken, getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 import Background from "../components/Background";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -68,6 +69,9 @@ const Login = () => {
       });
     setLoading(false);
   };
+  if (loading){
+    return <Loader/>
+  }
 
   return (
     <div className="flex  flex-1 flex-col justify-center px-6 py-12 lg:px-6 login">
