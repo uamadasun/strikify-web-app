@@ -5,6 +5,7 @@ import { API, BEARER, STRIKE } from "../constant";
 import { getToken, setToken } from "../helpers";
 import axios from "axios";
 import "../styles/Login.css";
+import Loader from "../components/Loader";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -88,6 +89,10 @@ const Registration = () => {
       });
     setLoading(false);
   };
+
+  if (loading){
+    return <Loader/>
+  }
 
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 login">
