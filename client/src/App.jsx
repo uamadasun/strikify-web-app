@@ -18,15 +18,17 @@ function App() {
   const { user, setUser } = useAuthContext();
   useEffect(() => {
     if (user) {
-      axios
-        .get(`${API}/shops?filters[shop_owner][$eq]=${user.username}`, {
-          headers: {
-            Authorization: `${BEARER} ${getToken()}`,
-          },
-        })
-        .then((res) => {
-          setShops(res.data.data);
-        });
+       axios
+      .get(`${API}/users/me?populate=*`, {
+        headers: {
+          Authorization: `${BEARER} ${getToken()}`,
+        },
+      })
+      .then(async (res) => {
+        await setShops(res.data.allShops);
+        // console.log(res.data)
+        // console.log(user)
+      });
     }
   }, [user,]);
   

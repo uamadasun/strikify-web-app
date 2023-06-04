@@ -29,9 +29,11 @@
         "images"
       ]
     },
-    "shop_id": {
-      "type": "integer",
-      "required": true
+    "shop": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "products"
     }
   }
 }
