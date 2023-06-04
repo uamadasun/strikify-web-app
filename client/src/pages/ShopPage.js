@@ -13,43 +13,45 @@ const ShopPage = () => {
   const [products, setProducts] = useState([]);
   const { id } = useParams();
 
-  const fetchShop = async () => {
+  const fetchShopAndProducts = async () => {
     setLoading(true);
 
-    await axios
-      // Get the shop information
-      .get(`${API}/shops/${id}`, {
+    try {
+      const shopResponse = await axios.get(`${API}/shops/${id}`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },
-      })
-      .then(async (res) => {
-        console.log(res.data);
-        await setShop(res.data.data.attributes);
-        console.log(res.data.data.attributes);
-        await axios
-          .get(`${API}/products?filters[shop_id][$eq]=${id}`, {
-            headers: {
-              Authorization: `${BEARER} ${getToken()}`,
-            },
-          })
-          .then(async (response) => {
-            console.log("Product Data: ", response.data);
-            setProducts(response.data.data);
-          });
       });
-    setLoading(false);
+      const shopData = shopResponse.data.data.attributes;
+      setShop(shopData);
+
+      const productsResponse = await axios.get(
+        `${API}/products?filters[shop_id][$eq]=${id}`,
+        {
+          headers: {
+            Authorization: `${BEARER} ${getToken()}`,
+          },
+        }
+      );
+      // console.log("Products Data: ", productsResponse.data)
+      setProducts(productsResponse.data.data);
+    } catch (error) {
+      console.error("Error fetching shop and products:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (user) {
-      fetchShop();
+      fetchShopAndProducts();
     }
   }, []);
 
   if (loading) {
     return <Loader />;
   }
+
   return (
     <div>
       <h1 className="mt-40 text-2xl text-center">{shop.shop_name}</h1>
@@ -65,8 +67,7 @@ const ShopPage = () => {
           </button>
         </>
       ) : (
-        <>
-        <p className="text-center mt-5">You have products</p></>
+        <p className="text-center mt-5">You have products</p>
       )}
     </div>
   );
