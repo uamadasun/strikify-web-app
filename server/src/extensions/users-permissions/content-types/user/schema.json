@@ -69,6 +69,17 @@
       "type": "password",
       "private": true,
       "required": true
+    },
+    "shops": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::shop.shop"
+    },
+    "allShops": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::shop.shop",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

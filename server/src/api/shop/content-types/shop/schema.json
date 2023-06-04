@@ -4,7 +4,8 @@
   "info": {
     "singularName": "shop",
     "pluralName": "shops",
-    "displayName": "shop"
+    "displayName": "shop",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,9 +17,17 @@
       "required": true,
       "minLength": 1
     },
-    "shop_owner": {
-      "type": "string",
-      "required": false
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "shop"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "allShops"
     }
   }
 }

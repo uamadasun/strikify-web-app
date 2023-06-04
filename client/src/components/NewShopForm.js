@@ -12,7 +12,7 @@ const NewShopForm = (props) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
 
-  const [shop, setShop] = useState({ shop_owner: user.username });
+  const [shop, setShop] = useState({users_permissions_user:user});
   const [shops, setShops] = useContext(ShopContext);
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ const NewShopForm = (props) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+  
     axios
       .post(
         `${API}/shops`,
@@ -38,15 +39,17 @@ const NewShopForm = (props) => {
         }
       )
       .then((res) => {
-        // console.log(res);
-        setShops({ ...shops, res });
+        console.log(res);
         navigate(`/shops/${res.data.data.id}`);
       })
       .catch((err) => {
         console.log(err.response);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   };
+  
 
   return (
     

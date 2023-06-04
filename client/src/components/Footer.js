@@ -13,7 +13,7 @@ const Footer = () => {
       </footer> */}
 
       <footer
-        class="
+        className="
              text-xs text-white text-center
              fixed
              inset-x-0

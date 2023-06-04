@@ -17,26 +17,28 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [shops, setShops] = useContext(ShopContext);
 
-  const fetchShops = async () => {
-    setLoading(true);
+  // const fetchShops = async () => {
+  //   setLoading(true);
 
-    await axios
-      .get(`${API}/shops?filters[shop_owner][$eq]=${user.username}`, {
-        headers: {
-          Authorization: `${BEARER} ${getToken()}`,
-        },
-      })
-      .then(async (res) => {
-        await setShops(res.data.data);
-      });
-    setLoading(false);
-  };
+  //   await axios
+  //     .get(`${API}/users/me?populate=*`, {
+  //       headers: {
+  //         Authorization: `${BEARER} ${getToken()}`,
+  //       },
+  //     })
+  //     .then(async (res) => {
+  //       await setShops(res.data.allShops);
+  //       console.log(res.data)
+  //       console.log(user)
+  //     });
+  //   setLoading(false);
+  // };
 
-  useEffect(() => {
-    if (user) {
-      fetchShops();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     fetchShops();
+  //   }
+  // }, []);
 
   if (!user || loading) {
     return <div>
@@ -63,7 +65,7 @@ const Dashboard = () => {
                             className="flex gap-x-2"
                           >
                             <span className="truncate">
-                              {shop.attributes.shop_name}
+                              {shop.shop_name}
                             </span>
                           </Link>
                         </h2>

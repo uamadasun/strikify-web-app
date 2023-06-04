@@ -17,24 +17,15 @@ const ShopPage = () => {
     setLoading(true);
 
     try {
-      const shopResponse = await axios.get(`${API}/shops/${id}`, {
+      const shopResponse = await axios.get(`${API}/shops/${id}?populate=*`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
       const shopData = shopResponse.data.data.attributes;
       setShop(shopData);
-
-      const productsResponse = await axios.get(
-        `${API}/products?filters[shop_id][$eq]=${id}`,
-        {
-          headers: {
-            Authorization: `${BEARER} ${getToken()}`,
-          },
-        }
-      );
-      // console.log("Products Data: ", productsResponse.data)
-      setProducts(productsResponse.data.data);
+      const shopProducts = shopResponse.data.data.attributes.products.data;
+      setProducts(shopProducts);
     } catch (error) {
       console.error("Error fetching shop and products:", error);
     } finally {
