@@ -30,6 +30,7 @@ const Login = () => {
 
   const handleInputChange = (e) => {
     const value = e.target.name === "username" ? e.target.value.toLowerCase() : e.target.value;
+    // console.log(value)
     setInitialUser((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
 
@@ -75,7 +76,7 @@ const Login = () => {
             <div className="mt-2">
               <input
                 id="identifier"
-                name="identifier"
+                name="username"
                 type="text"
                 autoComplete="identifier"
                 required
