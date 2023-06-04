@@ -29,7 +29,7 @@ const Login = () => {
   }, [navigate, setUser]);
 
   const handleInputChange = (e) => {
-    const value = e.target.name === "username" ? e.target.value.toLowerCase() : e.target.value;
+    const value = e.target.id === "username" ? e.target.value.toLowerCase() : e.target.value;
     // console.log(value)
     setInitialUser((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
@@ -75,8 +75,8 @@ const Login = () => {
             </label>
             <div className="mt-2">
               <input
-                id="identifier"
-                name="username"
+                id="username"
+                name="identifier"
                 type="text"
                 autoComplete="identifier"
                 required
