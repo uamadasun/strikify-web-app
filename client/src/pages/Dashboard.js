@@ -39,7 +39,7 @@ const Dashboard = () => {
     fetchShops();
   }, []);
 
-  if (!user || loading) {
+  if (!user || loading || !shops) {
     return <Loader />;
   }
 
