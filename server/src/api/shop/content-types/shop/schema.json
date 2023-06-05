@@ -17,7 +17,7 @@
       "required": true,
       "minLength": 1
     },
-    "users_permissions_user": {
+    "owner": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
