@@ -25,7 +25,7 @@ function App() {
         },
       })
       .then(async (res) => {
-        await setShops(res.data.allShops);
+        await setShops(res.data.shops);
         // console.log(res.data)
         // console.log(user)
       });
