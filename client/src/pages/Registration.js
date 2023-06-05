@@ -54,11 +54,13 @@ const Registration = () => {
 
     axios(config)
       .then((response) => {
+        console.log(response.data)
         if (initialUser.password === initialUser.confirm_password) {
           axios
             .post(`${API}/auth/local/register`, initialUser)
             .then((res) => {
               console.log("user registered");
+              // console.log(res.data)
 
               setUser(res.data);
               setToken(res.data.jwt);

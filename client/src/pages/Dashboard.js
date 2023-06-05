@@ -29,7 +29,7 @@ const Dashboard = () => {
       console.log("res:", res.data)
 
 
-      // setShops(res.data.shops);
+      setShops(res.data.shops);
     } catch (error) {
       console.log("this is the error message",error);
     }
@@ -51,7 +51,7 @@ const Dashboard = () => {
         <UserProfilePic username={user.username} />
       </div>
       <div className="mt-40">
-        {shops ? (
+        {shops.length > 0 ? (
           <div className="mt-40 max-w-md mx-auto">
             <ul className="divide-y divide-white/5">
               {shops.map((shop) => (
