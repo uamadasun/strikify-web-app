@@ -41,7 +41,7 @@ const Dashboard = () => {
     fetchShops();
   }, []);
 
-  if (!user || loading || !shops) {
+  if (!user || loading ) {
     return <Loader />;
   }
 
