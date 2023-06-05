@@ -74,7 +74,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::shop.shop",
-      "mappedBy": "user"
+      "mappedBy": "users_permissions_user"
     }
   }
 }

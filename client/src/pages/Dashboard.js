@@ -14,22 +14,24 @@ import Loader from "../components/Loader";
 const Dashboard = () => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
-  const [shops, setShops] = useContext(ShopContext);
+  const [shops, setShops] = useState([]);
 
   const fetchShops = async () => {
     setLoading(true);
 
     try {
+
       const res = await axios.get(`${API}/users/me?populate=*`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
+      console.log("got user")
+
 
       setShops(res.data.shops);
-      console.log(res.data.shops);
     } catch (error) {
-      console.log(error);
+      console.log("this is the error message",error);
     }
 
     setLoading(false);

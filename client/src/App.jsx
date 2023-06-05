@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     if (user) {
        axios
-      .get(`${API}/users/me?populate=*`, {
+      .get(`${API}/users/me`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },

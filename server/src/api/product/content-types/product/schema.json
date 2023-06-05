@@ -28,6 +28,12 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "shop": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "products"
     }
   }
 }
