@@ -3,8 +3,6 @@ import { API, BEARER } from "../constant";
 import axios from "axios";
 import { getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
-import { shops, setShops } from "../pages/Dashboard";
-import { ShopContext } from "../App";
 import { useNavigate } from "react-router-dom";
 
 const NewShopForm = (props) => {
@@ -12,8 +10,7 @@ const NewShopForm = (props) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
 
-  const [shop, setShop] = useState({users_permissions_user:user});
-  const [shops, setShops] = useContext(ShopContext);
+  const [shop, setShop] = useState({user:user});
   const navigate = useNavigate();
 
   // form handler for new shop
@@ -34,7 +31,7 @@ const NewShopForm = (props) => {
         { data: shop },
         {
           headers: {
-            Authorization: `Bearer ${getToken()}`,
+            Authorization: `${BEARER} ${getToken()}`,
           },
         }
       )

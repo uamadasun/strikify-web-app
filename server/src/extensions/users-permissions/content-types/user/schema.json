@@ -73,13 +73,8 @@
     "shops": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::shop.shop"
-    },
-    "allShops": {
-      "type": "relation",
-      "relation": "oneToMany",
       "target": "api::shop.shop",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

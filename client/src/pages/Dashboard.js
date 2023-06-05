@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { API, BEARER, STRIKE } from "../constant";
+import { API, BEARER } from "../constant";
 import { getToken } from "../helpers";
 import axios from "axios";
 import UserProfilePic from "../components/UserProfilePic";
@@ -12,61 +12,57 @@ import { ShopContext } from "../App";
 import Loader from "../components/Loader";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [shops, setShops] = useContext(ShopContext);
 
-  // const fetchShops = async () => {
-  //   setLoading(true);
+  const fetchShops = async () => {
+    setLoading(true);
 
-  //   await axios
-  //     .get(`${API}/users/me?populate=*`, {
-  //       headers: {
-  //         Authorization: `${BEARER} ${getToken()}`,
-  //       },
-  //     })
-  //     .then(async (res) => {
-  //       await setShops(res.data.allShops);
-  //       console.log(res.data)
-  //       console.log(user)
-  //     });
-  //   setLoading(false);
-  // };
+    try {
+      const res = await axios.get(`${API}/users/me?populate=*`, {
+        headers: {
+          Authorization: `${BEARER} ${getToken()}`,
+        },
+      });
 
-  // useEffect(() => {
-  //   if (user) {
-  //     fetchShops();
-  //   }
-  // }, []);
+      setShops(res.data.shops);
+      console.log(res.data.shops);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchShops();
+  }, []);
 
   if (!user || loading) {
-    return <div>
-        <Loader/>
-    </div>;
+    return <Loader />;
   }
+
   return (
     <div className="dashboard-content">
       <div className="profile-pic">
         <UserProfilePic username={user.username} />
       </div>
-      <div className="mt-40 ">
+      <div className="mt-40">
         {shops.length > 0 ? (
           <div className="mt-40 max-w-md mx-auto">
             <ul className="divide-y divide-white/5">
               {shops.map((shop) => (
                 <Link to={`/shops/${shop.id}`} key={shop.id}>
-                  <li className=" relative flex items-center space-x-4 py-4">
-                    <div className="min-w-0  flex-auto">
+                  <li className="relative flex items-center space-x-4 py-4">
+                    <div className="min-w-0 flex-auto">
                       <div className="flex items-center gap-x-3">
                         <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
                           <Link
                             to={`/shops/${shop.id}`}
                             className="flex gap-x-2"
                           >
-                            <span className="truncate">
-                              {shop.shop_name}
-                            </span>
+                            <span className="truncate">{shop.shop_name}</span>
                           </Link>
                         </h2>
                       </div>
@@ -81,7 +77,6 @@ const Dashboard = () => {
               ))}
             </ul>
             <div className="mx-auto rounded-lg">
-              {" "}
               <NewShopButton />
             </div>
           </div>

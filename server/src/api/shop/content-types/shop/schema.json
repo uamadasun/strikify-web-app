@@ -20,14 +20,13 @@
     "products": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::product.product",
-      "mappedBy": "shop"
+      "target": "api::product.product"
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "allShops"
+      "inversedBy": "shops"
     }
   }
 }

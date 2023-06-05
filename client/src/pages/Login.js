@@ -42,7 +42,9 @@ const Login = () => {
       const res = await axios.post(`${API}/auth/local`, initialUser);
       setUser(res.data.user);
       setToken(res.data.jwt);
+      // console.log(res.data.user)
       navigate(`/dashboard/${res.data.user.id}`, { replace: true });
+
     } catch (err) {
       setError(err.response?.data?.error?.message || "An error occurred");
     } finally {
