@@ -21,12 +21,12 @@ const Dashboard = () => {
 
     try {
 
-      const res = await axios.get(`${API}/users/me`, {
+      const res = await axios.get(`${API}/users/me?populate=*`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
-      console.log("res:", res)
+      console.log("res:", res.data)
 
 
       // setShops(res.data.shops);
