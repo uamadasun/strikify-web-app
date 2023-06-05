@@ -10,7 +10,7 @@ const NewShopForm = (props) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuthContext();
 
-  const [shop, setShop] = useState({user:user});
+  const [shop, setShop] = useState({users_permissions_user: user});
   const navigate = useNavigate();
 
   // form handler for new shop
