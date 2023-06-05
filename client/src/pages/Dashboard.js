@@ -7,7 +7,7 @@ import axios from "axios";
 import UserProfilePic from "../components/UserProfilePic";
 import "../styles/Dashboard.css";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import NewShopButton from "../components/NewShopButton";
+import NewShopForm from "../components/NewShopForm";
 import { ShopContext } from "../App";
 import Loader from "../components/Loader";
 
@@ -20,18 +20,16 @@ const Dashboard = () => {
     setLoading(true);
 
     try {
-
       const res = await axios.get(`${API}/users/me?populate=*`, {
         headers: {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
-      console.log("res:", res.data)
-
+      console.log("res:", res.data);
 
       setShops(res.data.shops);
     } catch (error) {
-      console.log("this is the error message",error);
+      console.log("this is the error message", error);
     }
 
     setLoading(false);
@@ -41,7 +39,7 @@ const Dashboard = () => {
     fetchShops();
   }, []);
 
-  if (!user || loading ) {
+  if (!user || loading) {
     return <Loader />;
   }
 
@@ -50,7 +48,7 @@ const Dashboard = () => {
       <div className="profile-pic">
         <UserProfilePic username={user.username} />
       </div>
-      <div className="mt-40">
+      <div className="mt-40 shops">
         {shops.length > 0 ? (
           <div className="mt-40 max-w-md mx-auto">
             <ul className="divide-y divide-white/5">
@@ -79,17 +77,17 @@ const Dashboard = () => {
               ))}
             </ul>
             <div className="mx-auto rounded-lg">
-              <NewShopButton />
+              <NewShopForm />
             </div>
           </div>
         ) : (
-          <div className="new-text text-center mt-50">
+          <div className="new-text text-center mt-50 mx-auto flex flex-col justify-center items-center align-middle">
             <div
-              className="px-4 py-3 leading-normal text-whiterounded-lg w-1/2 mx-auto"
-              role="alert"
+              className="leading-normal text-whiterounded-lg mx-auto"
             >
-              <p className="mb-3">You don't have any shops.</p>
-              <NewShopButton />
+              <p className="mb-3 w-max">You don't have any shops.</p>
+              <div className=""><NewShopForm /></div>
+              
             </div>
           </div>
         )}
