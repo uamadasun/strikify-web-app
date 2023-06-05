@@ -3,6 +3,7 @@ import { STRIKE } from '../constant';
 import axios from 'axios';
 import '../styles/Dashboard.css'
 import { useAuthContext } from '../context/AuthContext';
+import defaultPic from '../assets/userProfile.png'
 
 const UserProfilePic = (props) => {
     const {username} = props;
@@ -24,7 +25,8 @@ const UserProfilePic = (props) => {
           axios(config)
           .then((response) => {
             // console.log(JSON.stringify(response.data));
-            setPicURL(response.data.avatarUrl);
+            const profilePic = response.data.avatarUrl ? response.data.avatarUrl : defaultPic
+            setPicURL(profilePic);
             // console.log(response.data.avatarUrl)
           })
           .catch((error) => {
