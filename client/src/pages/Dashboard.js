@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { API, BEARER } from "../constant";
 import { getToken } from "../helpers";
@@ -7,14 +7,48 @@ import axios from "axios";
 import UserProfilePic from "../components/UserProfilePic";
 import "../styles/Dashboard.css";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import NewShopForm from "../components/NewShopForm";
-import { ShopContext } from "../App";
 import Loader from "../components/Loader";
 
 const Dashboard = () => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [shops, setShops] = useState([]);
+  const navigate = useNavigate();
+  const [shop, setShop] = useState({ owner: user });
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    console.log(e.target.value);
+    setShop((prevState) => ({ ...prevState, [e.target.name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    console.log("form submitted");
+
+    e.preventDefault();
+    setLoading(true);
+
+    axios
+      .post(
+        `${API}/shops`,
+        { data: shop },
+        {
+          headers: {
+            Authorization: `${BEARER} ${getToken()}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate(`/shops/${res.data.data.id}`);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const fetchShops = async () => {
     setLoading(true);
@@ -50,7 +84,7 @@ const Dashboard = () => {
       </div>
       <div className="mt-40 shops">
         {shops.length > 0 ? (
-          <div className="mt-40 max-w-md mx-auto">
+          <div className="mt-30 max-w-md mx-auto">
             <ul className="divide-y divide-white/5">
               {shops.map((shop) => (
                 <Link to={`/shops/${shop.id}`} key={shop.id}>
@@ -76,18 +110,55 @@ const Dashboard = () => {
                 </Link>
               ))}
             </ul>
-            <div className="mx-auto rounded-lg">
-              <NewShopForm />
+            <div className="relative px-8 pb-auto flex-auto">
+              <form onSubmit={handleSubmit} className="flex flex-col">
+                <div>
+                  <label htmlFor="shop_name" className="sr-only ">
+                    Shop Name
+                  </label>
+                  <input
+                    type="text"
+                    name="shop_name"
+                    id="shop_name"
+                    className="block bg-white w-full rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Shop Name..."
+                    required
+                    onChange={handleInputChange}
+                  />
+                  <input type="hidden" name="owner" id="owner" />
+                </div>
+                <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 text-black">
+                  Create Shop
+                </button>
+              </form>
             </div>
           </div>
         ) : (
           <div className="new-text text-center mt-50 mx-auto flex flex-col justify-center items-center align-middle">
-            <div
-              className="leading-normal text-whiterounded-lg mx-auto"
-            >
+            <div className="leading-normal text-whiterounded-lg mx-auto">
               <p className="mb-3 w-max">You don't have any shops.</p>
-              <div className=""><NewShopForm /></div>
-              
+              <div className="relative px-8 pb-auto flex-auto">
+                <form onSubmit={handleSubmit} className="flex flex-col">
+                  <div>
+                    <label htmlFor="shop_name" className="sr-only ">
+                      Shop Name
+                    </label>
+                    <input
+                      type="text"
+                      name="shop_name"
+                      id="shop_name"
+                      className="block bg-white w-max rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder="Shop Name..."
+                      required
+                      onChange={handleInputChange}
+                    />
+                    <input type="hidden" name="owner" id="owner" />
+                  </div>
+                  <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 text-black">
+                    Create Shop
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         )}
