@@ -5,49 +5,49 @@ import { getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const NewShopForm = (props) => {
+const ProductForm = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false)
-  const [shop, setShop] = useState({owner:user})
+  const [loading, setLoading] = useState(false);
+  const [shop, setShop] = useState({ owner: user });
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    console.log(e.target.value)
+    console.log(e.target.value);
     setShop((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
 
   const handleSubmit = async (e) => {
-    console.log('form submitted')
-    
-          e.preventDefault();
-          setLoading(true);
-        
-          axios
-            .post(
-              `${API}/shops`,
-              { data: shop },
-              {
-                headers: {
-                  Authorization: `${BEARER} ${getToken()}`,
-                },
-              }
-            )
-            .then((res) => {
-              console.log(res);
-              navigate(`/shops/${res.data.data.id}`);
-            })
-            .catch((err) => {
-              console.log(err.response);
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-    
-  }
+    console.log("form submitted");
+
+    e.preventDefault();
+    setLoading(true);
+
+    axios
+      .post(
+        `${API}/shops`,
+        { data: shop },
+        {
+          headers: {
+            Authorization: `${BEARER} ${getToken()}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        navigate(`/shops/${res.data.data.id}`);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   return (
     <>
+      
       <button
         className="bg-yellow-300 btn py-0 w-max btn-sm  text-black active:bg-yellow-600 font-bold uppercase text-sm  rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
@@ -83,11 +83,7 @@ const NewShopForm = (props) => {
                         required
                         onChange={handleInputChange}
                       />
-                      <input
-                        type="hidden"
-                        name="owner"
-                        id="owner"
-                      />
+                      <input type="hidden" name="owner" id="owner" />
                     </div>
                   </form>
                 </div>
@@ -118,4 +114,4 @@ const NewShopForm = (props) => {
   );
 };
 
-export default NewShopForm;
+export default ProductForm;
