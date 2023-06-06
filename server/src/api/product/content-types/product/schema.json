@@ -19,7 +19,8 @@
     "product_price": {
       "type": "decimal",
       "required": true,
-      "min": 0.1
+      "min": 0.01,
+      "default": 0.01
     },
     "product_image": {
       "type": "media",
