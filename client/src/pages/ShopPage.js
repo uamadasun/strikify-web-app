@@ -73,7 +73,7 @@ const ShopPage = () => {
             />
           ) : (
             <button
-              className="bg-yellow-300 btn btn-sm text-black active:bg-yellow-600 font-bold uppercase text-sm rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="bg-yellow-300 mx-0 btn btn-sm text-black active:bg-yellow-600 font-bold uppercase text-sm rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={() => setShowModal(true)}
             >
