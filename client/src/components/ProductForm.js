@@ -5,7 +5,9 @@ import { getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-// TODO: Figure out why form submits fine the first time but 400 error second time
+// TODO: Figure out why form submits fine the first time but 400 error second time (
+// SOLVED WHEN I REMOVED PRODUCT_IMAGE, FIND OUT WHY. ERROR MSG: strapi error select count(t0.id) as count from public.files as t0 where (t0.id in ($1)) limit $2 - invalid input syntax for type integer:
+// )
 //figure out why shop data is not being saved with addition of product
 const ProductForm = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -14,17 +16,17 @@ const ProductForm = (props) => {
   const theShop = props;
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState({
-    product_name: '',
-    product_price:0.01,
-    product_image :null,
-    shop: theShop
+    product_name: "",
+    product_price: 0.01,
+    // product_image :null,
+    product_shop: theShop.theShop,
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+// console.log(theShop.theShop)
   const handleInputChange = (e) => {
     const value = e.target.value;
     console.log(e.target.value);
-    setProduct((prevState) => ({ ...prevState, [e.target.name]: value }));
+    setProduct((prevState) => ({ ...prevState, [e.target.name]: value}));
   };
 
   // Form submit handler to create product
@@ -33,14 +35,12 @@ const ProductForm = (props) => {
 
     e.preventDefault();
     setLoading(true);
-    console.log(product)
+    console.log(product);
 
-
-    
     axios
       .post(
         `${API}/products`,
-        { data: product },
+        { data: {...product, } },
         {
           headers: {
             Authorization: `${BEARER} ${getToken()}`,
@@ -49,8 +49,8 @@ const ProductForm = (props) => {
       )
       .then((res) => {
         console.log(res);
-        setFormSubmitted(true)
-        
+        props.fetchShopAndProducts();
+        setFormSubmitted(true);
       })
       .catch((err) => {
         console.log(err.response);
@@ -58,22 +58,23 @@ const ProductForm = (props) => {
       .finally(() => {
         setLoading(false);
         setProduct({
-          product_name: '',
+          product_name: "",
           product_price: 0.01,
-          product_image :'',
-          shop: theShop
-        })
+          product_shop:17
+
+          
+        });
       });
   };
-    // Function to force re-render
-    const forceUpdate = () => {
-      setFormSubmitted(false);
-    };
-  
-    // Check if form is submitted and force re-render
-    if (formSubmitted) {
-      forceUpdate();
-    }
+  // Function to force re-render
+  const forceUpdate = async () => {
+    await setFormSubmitted(false);
+  };
+
+  // Check if form is submitted and force re-render
+  if (formSubmitted) {
+    forceUpdate();
+  }
   return (
     <div>
       <div className="mx-auto flex justify-center mt-4">
@@ -99,10 +100,14 @@ const ProductForm = (props) => {
                 </div>
                 {/*body*/}
                 <div className="relative px-8 pb-auto flex-auto">
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    onSubmit={() => {
+                      handleSubmit();
+                    }}
+                  >
                     <div>
                       <label htmlFor="product_name" className="text-black">
-                         Name
+                        Name
                       </label>
                       <input
                         type="text"
@@ -115,8 +120,11 @@ const ProductForm = (props) => {
                       />
                     </div>
                     <div className="mt-5">
-                      <label htmlFor="product_price" className="text-black mb-5">
-                         Price
+                      <label
+                        htmlFor="product_price"
+                        className="text-black mb-5"
+                      >
+                        Price
                       </label>
                       <div className="flex">
                         <p className="my-auto text-black mr-1">$</p>
@@ -135,7 +143,7 @@ const ProductForm = (props) => {
                     </div>
                     <div className="mt-5">
                       <label htmlFor="product_image" className="text-black">
-                         Image
+                        Image
                       </label>
                       <input
                         type="file"
@@ -143,10 +151,15 @@ const ProductForm = (props) => {
                         id="product_image"
                         className="block bg-white w-full rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
-                        value={''}
                       />
                     </div>
-                    <input required type="hidden" name="shop" id="shop" value={theShop}/>
+                    <input
+                      required
+                      type="hidden"
+                      name="product_shop"
+                      id="product_shop"
+                      value={theShop}
+                    />
                   </form>
                 </div>
                 {/*footer*/}
