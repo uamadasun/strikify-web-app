@@ -30,7 +30,7 @@
         "images"
       ]
     },
-    "shop": {
+    "product_shop": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::shop.shop",

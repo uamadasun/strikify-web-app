@@ -27,7 +27,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
-      "mappedBy": "shop"
+      "mappedBy": "product_shop"
     }
   }
 }

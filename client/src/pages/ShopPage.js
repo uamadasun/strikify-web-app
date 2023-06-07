@@ -9,6 +9,7 @@ import ProductForm from "../components/ProductForm";
 const ShopPage = () => {
   const [loading, setLoading] = useState(false);
   const [shop, setShop] = useState({});
+  const [shopId, setShopId] = useState(0);
   const [products, setProducts] = useState([]);
   const { id } = useParams();
 
@@ -22,9 +23,14 @@ const ShopPage = () => {
         },
       });
       const shopData = shopResponse.data.data.attributes;
+      const shopId = shopResponse.data.data.id;
       setShop(shopData);
+      setShopId(shopId)
+      console.log("Shop data: ",shopData)
+      console.log("Shop ID: ",shopId)
       const shopProducts = shopResponse.data.data.attributes.products.data;
       setProducts(shopProducts);
+      console.log("products: " ,shopResponse.data.data.attributes.products.data)
     } catch (error) {
       console.error("Error fetching shop and products:", error);
     } finally {
@@ -34,7 +40,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     fetchShopAndProducts();
-  }, []);
+  }, [ ]);
 
   if (loading) {
     return <Loader />;
@@ -48,7 +54,7 @@ const ShopPage = () => {
           <p className="text-center mt-5">
             You don't have any products in this shop.
           </p>
-          <ProductForm theShop={shop}/>
+          <ProductForm theShop={shopId} fetchShopAndProducts={fetchShopAndProducts}/>
         </>
       ) : (
         <p className="text-center mt-5">You have products</p>
