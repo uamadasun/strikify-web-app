@@ -12,6 +12,8 @@ const ShopPage = () => {
   const [shopId, setShopId] = useState(0);
   const [products, setProducts] = useState([]);
   const { id } = useParams();
+  // const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
+  const [showModal, setShowModal] = useState(false);
 
   const fetchShopAndProducts = async () => {
     setLoading(true);
@@ -24,13 +26,10 @@ const ShopPage = () => {
       });
       const shopData = shopResponse.data.data.attributes;
       const shopId = shopResponse.data.data.id;
-      setShop(shopData);
-      setShopId(shopId)
-      console.log("Shop data: ",shopData)
-      console.log("Shop ID: ",shopId)
       const shopProducts = shopResponse.data.data.attributes.products.data;
+      setShop(shopData);
+      setShopId(shopId);
       setProducts(shopProducts);
-      console.log("products: " ,shopResponse.data.data.attributes.products.data)
     } catch (error) {
       console.error("Error fetching shop and products:", error);
     } finally {
@@ -40,7 +39,17 @@ const ShopPage = () => {
 
   useEffect(() => {
     fetchShopAndProducts();
-  }, [ ]);
+  }, []);
+
+  const handleFormClose = () => {
+    handleFormSubmit();
+    setShowModal(false);
+  };
+
+  const handleFormSubmit = async () => {
+    // Trigger a re-render by fetching updated data
+    await fetchShopAndProducts();
+  };
 
   if (loading) {
     return <Loader />;
@@ -54,7 +63,23 @@ const ShopPage = () => {
           <p className="text-center mt-5">
             You don't have any products in this shop.
           </p>
-          <ProductForm theShop={shopId} fetchShopAndProducts={fetchShopAndProducts}/>
+          {showModal ? (
+            <ProductForm
+              theShop={shopId}
+              onClose={handleFormClose}
+              onSubmit={handleFormSubmit}
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
+          ) : (
+            <button
+              className="bg-yellow-300 btn btn-sm text-black active:bg-yellow-600 font-bold uppercase text-sm rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={() => setShowModal(true)}
+            >
+              Add Products
+            </button>
+          )}
         </>
       ) : (
         <p className="text-center mt-5">You have products</p>
@@ -64,4 +89,3 @@ const ShopPage = () => {
 };
 
 export default ShopPage;
-
