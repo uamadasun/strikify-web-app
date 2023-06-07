@@ -8,7 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 // TODO: Figure out why form submits fine the first time but 400 error second time (
 // SOLVED WHEN I REMOVED PRODUCT_IMAGE, FIND OUT WHY. ERROR MSG: strapi error select count(t0.id) as count from public.files as t0 where (t0.id in ($1)) limit $2 - invalid input syntax for type integer:
 // )
-//figure out why shop data is not being saved with addition of product
+// overflow shop data on dashboard
+// List product information on shop page
+//Make product modal responsive
+
 const ProductForm = (props) => {
   // const { user } = useAuthContext();
   const navigate = useNavigate();

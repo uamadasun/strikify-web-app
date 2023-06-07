@@ -18,7 +18,8 @@ const Footer = () => {
              fixed
              inset-x-0
              bottom-0
-             p-4"
+             p-4
+             mt-10"
       >
         &copy; 2023 Amadasun Web Design, LLC. All rights reserved.
       </footer>
