@@ -14,7 +14,8 @@
   "attributes": {
     "product_name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "minLength": 1
     },
     "product_price": {
       "type": "decimal",

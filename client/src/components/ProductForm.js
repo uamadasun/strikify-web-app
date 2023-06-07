@@ -10,23 +10,21 @@ import { useNavigate, useParams } from "react-router-dom";
 // )
 //figure out why shop data is not being saved with addition of product
 const ProductForm = (props) => {
-  const [showModal, setShowModal] = useState(false);
   // const { user } = useAuthContext();
   const navigate = useNavigate();
-  const theShop = props;
+  const { theShop, onClose, onSubmit, showModal, setShowModal } = props;
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState({
-    product_name: "",
-    product_price: 0.01,
-    // product_image :null,
-    product_shop: theShop.theShop,
+    product_name:'',
+    product_price:0.01,
+    product_shop: theShop,
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
-// console.log(theShop.theShop)
+  console.log(theShop);
   const handleInputChange = (e) => {
     const value = e.target.value;
     console.log(e.target.value);
-    setProduct((prevState) => ({ ...prevState, [e.target.name]: value}));
+    setProduct((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
 
   // Form submit handler to create product
@@ -40,7 +38,7 @@ const ProductForm = (props) => {
     axios
       .post(
         `${API}/products`,
-        { data: {...product, } },
+        { data: { ...product } },
         {
           headers: {
             Authorization: `${BEARER} ${getToken()}`,
@@ -48,9 +46,9 @@ const ProductForm = (props) => {
         }
       )
       .then((res) => {
+        // onSubmit()
         console.log(res);
-        props.fetchShopAndProducts();
-        setFormSubmitted(true);
+        // setFormSubmitted(true);
       })
       .catch((err) => {
         console.log(err.response);
@@ -58,34 +56,24 @@ const ProductForm = (props) => {
       .finally(() => {
         setLoading(false);
         setProduct({
-          product_name: "",
+          product_name:'',
           product_price: 0.01,
-          product_shop:17
-
-          
+          product_shop: theShop,
         });
       });
   };
+
   // Function to force re-render
-  const forceUpdate = async () => {
-    await setFormSubmitted(false);
-  };
+  // const forceUpdate = async () => {
+  //   await setFormSubmitted(false);
+  // };
 
   // Check if form is submitted and force re-render
-  if (formSubmitted) {
-    forceUpdate();
-  }
+  // if (formSubmitted) {
+  //   forceUpdate();
+  // }
   return (
     <div>
-      <div className="mx-auto flex justify-center mt-4">
-        <button
-          className="bg-yellow-300 btn btn-sm  text-black active:bg-yellow-600 font-bold uppercase text-sm  rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="button"
-          onClick={() => setShowModal(true)}
-        >
-          Add Products
-        </button>
-      </div>
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -100,11 +88,7 @@ const ProductForm = (props) => {
                 </div>
                 {/*body*/}
                 <div className="relative px-8 pb-auto flex-auto">
-                  <form
-                    onSubmit={() => {
-                      handleSubmit();
-                    }}
-                  >
+                  <form onSubmit={handleSubmit}>
                     <div>
                       <label htmlFor="product_name" className="text-black">
                         Name
@@ -116,7 +100,9 @@ const ProductForm = (props) => {
                         className="block bg-white w-full rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         required
                         onChange={handleInputChange}
+                        minLength={1}
                         value={product.product_name}
+
                       />
                     </div>
                     <div className="mt-5">
@@ -158,7 +144,6 @@ const ProductForm = (props) => {
                       type="hidden"
                       name="product_shop"
                       id="product_shop"
-                      value={theShop}
                     />
                   </form>
                 </div>
@@ -167,13 +152,15 @@ const ProductForm = (props) => {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      onClose();
+                    }}
                   >
                     Close
                   </button>
                   <button
                     className="bg-yellow-300 border-yellow-300 px-8 hover:shadow text-black active:bg-black hover:bg-white font-bold uppercase text-sm rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 btn btn-sm"
-                    type="button"
+                    type="submit"
                     onClick={handleSubmit}
                   >
                     Submit
