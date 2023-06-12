@@ -191,7 +191,10 @@ const ProductForm = (props) => {
                       ""
                     )}
                     <div className="mb-5">
-                      <label htmlFor="product_name" className="text-black font-semibold">
+                      <label
+                        htmlFor="product_name"
+                        className="text-black font-semibold"
+                      >
                         Product Name
                       </label>
                       <input
@@ -209,7 +212,10 @@ const ProductForm = (props) => {
                     </div>
 
                     <div className="mb-5">
-                      <label htmlFor="product_name" className="text-black font-semibold">
+                      <label
+                        htmlFor="product_name"
+                        className="text-black font-semibold"
+                      >
                         Product Price
                       </label>
                       <input
@@ -251,19 +257,20 @@ const ProductForm = (props) => {
                       })}
                       type="hidden"
                     />
-
-                    <input
-                      type="submit"
-                      className="bg-yellow-300 border-yellow-300 px-8 hover:shadow text-black active:bg-black hover:bg-white font-bold uppercase text-sm rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 btn btn-sm"
-                      onClick={() => {}}
-                    />
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    >
-                      Cancel
-                    </button>
+                    <div className="mb-5">
+                      <input
+                        type="submit"
+                        className="bg-yellow-300 border-yellow-300 px-8 hover:shadow text-black active:bg-black hover:bg-white font-bold uppercase text-sm rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 btn btn-sm"
+                        onClick={() => {}}
+                      />
+                      <button
+                        type="button"
+                        onClick={onClose}
+                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </form>
                 </div>
                 {/*footer*/}
