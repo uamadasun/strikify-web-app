@@ -59,7 +59,7 @@ const ShopPage = () => {
     <div>
       <h1 className="mt-40 text-2xl text-center">{shop.shop_name}</h1>
       {products.length === 0 ? (
-        <>
+        <div className="flex flex-col justify-center">
           <p className="text-center mt-5">
             You don't have any products in this shop.
           </p>
@@ -73,14 +73,14 @@ const ShopPage = () => {
             />
           ) : (
             <button
-              className="bg-yellow-300 mx-0 btn btn-sm text-black active:bg-yellow-600 font-bold uppercase text-sm rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="bg-yellow-300 w-fit mt-3 self-center btn btn-sm text-black active:bg-yellow-600 font-bold uppercase text-sm rounded shadow hover:bg-white outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={() => setShowModal(true)}
             >
               Add Products
             </button>
           )}
-        </>
+        </div>
       ) : (
         <p className="text-center mt-5">You have products</p>
       )}

@@ -59,7 +59,7 @@ const Dashboard = () => {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
-      console.log("res:", res.data);
+      // console.log("res:", res.data);
 
       setShops(res.data.shops);
     } catch (error) {
@@ -82,68 +82,69 @@ const Dashboard = () => {
       <div className="profile-pic">
         <UserProfilePic username={user.username} />
       </div>
-      <div className="mt-40 h-60 shops overflow-auto">
-        {shops.length > 0 ? (
-          <div className="mt-30 max-w-md mx-auto">
-            <ul className="divide-y divide-white/5">
-              {shops.map((shop) => (
-                <Link to={`/shops/${shop.id}`} key={shop.id}>
-                  <li className="relative flex items-center space-x-4 py-4">
-                    <div className="min-w-0 flex-auto">
-                      <div className="flex items-center gap-x-3">
-                        <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
-                          <Link
-                            to={`/shops/${shop.id}`}
-                            className="flex gap-x-2"
-                          >
-                            <span className="truncate">{shop.shop_name}</span>
-                          </Link>
-                        </h2>
+      <>
+        <div className={shops.length > 0 ? "mt-40 h-50 shops overflow-auto" : "mt-40 h-10 shops overflow-auto"}>
+          {shops.length > 0 ? (
+            <div className="mt-30 max-w-md mx-auto">
+              <ul className="divide-y divide-white/5">
+                {shops.map((shop) => (
+                  <Link to={`/shops/${shop.id}`} key={shop.id}>
+                    <li className="relative flex items-center space-x-4 py-4">
+                      <div className="min-w-0 flex-auto">
+                        <div className="flex items-center gap-x-3">
+                          <h2 className="min-w-0 text-md font-semibold leading-6 text-white">
+                            <Link
+                              to={`/shops/${shop.id}`}
+                              className="flex gap-x-2"
+                            >
+                              <span className="truncate">{shop.shop_name}</span>
+                            </Link>
+                          </h2>
+                        </div>
                       </div>
-                    </div>
 
-                    <ChevronRightIcon
-                      className="h-5 w-5 flex-none text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </li>
-                </Link>
-              ))}
-            </ul>
-            
-          </div>
-        ) : (
-          <div className="new-text text-center mt-50 mx-auto flex flex-col justify-center items-center align-middle">
-            <div className="leading-normal text-whiterounded-lg mx-auto">
-              <p className="mb-3 w-max">You don't have any shops.</p>
-              
+                      <ChevronRightIcon
+                        className="h-5 w-5 flex-none text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </li>
+                  </Link>
+                ))}
+              </ul>
             </div>
-          </div>
-        )}
-        
-      </div>
-      <div className="flex justify-center px-8  flex-auto">
-                <form onSubmit={handleSubmit} className="flex flex-col">
-                  <div className="w-max ">
-                    <label htmlFor="shop_name" className="sr-only ">
-                      Shop Name
-                    </label>
-                    <input
-                      type="text"
-                      name="shop_name"
-                      id="shop_name"
-                      className="w-80 shop-input block bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Shop Name..."
-                      required
-                      onChange={handleInputChange}
-                    />
-                    <input type="hidden" name="owner" id="owner" />
-                  </div>
-                  <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 text-black">
-                    Create Shop
-                  </button>
-                </form>
+          ) : (
+            <div className="new-text text-center mt-50 mx-auto flex flex-col justify-center items-center align-middle">
+              <div className="leading-normal text-whiterounded-lg mx-auto">
+                <p className="w-max">You don't have any shops.</p>
               </div>
+            </div>
+          )}
+        </div>
+      </>
+
+      {/* CREATE SHOP FORM */}
+      <div className="flex justify-center px-8 flex-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <div className="w-max ">
+            <label htmlFor="shop_name" className="sr-only ">
+              Shop Name
+            </label>
+            <input
+              type="text"
+              name="shop_name"
+              id="shop_name"
+              className="w-80 shop-input block bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              placeholder="Shop Name..."
+              required
+              onChange={handleInputChange}
+            />
+            <input type="hidden" name="owner" id="owner" />
+          </div>
+          <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 text-black">
+            Create Shop
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
