@@ -17,12 +17,6 @@
       "required": true,
       "minLength": 1
     },
-    "product_price": {
-      "type": "decimal",
-      "required": true,
-      "min": 0.01,
-      "default": 0.01
-    },
     "product_image": {
       "type": "media",
       "multiple": false,
@@ -36,6 +30,10 @@
       "relation": "manyToOne",
       "target": "api::shop.shop",
       "inversedBy": "products"
+    },
+    "product_price": {
+      "type": "decimal",
+      "required": true
     }
   }
 }
