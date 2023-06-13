@@ -243,13 +243,7 @@ const ProductForm = (props) => {
                         </p>
                       )}
                     </div>
-                    <input
-                      required
-                      type="hidden"
-                      name="product_shop"
-                      id="product_shop"
-                      value={theShop}
-                    />
+      
 
                     <input
                       {...register("product_shop", {

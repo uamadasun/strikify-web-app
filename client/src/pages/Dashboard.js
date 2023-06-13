@@ -107,7 +107,7 @@ const Dashboard = () => {
         </form>
       </div>
       <>
-        <div className="mt-10 h-10 shops overflow-auto">
+        <div className="mt-10 h-30 shops overflow-auto">
           {shops.length > 0 ? (
             <div className="mt-30 max-w-md mx-auto">
               <ul className="divide-y divide-white/5">
