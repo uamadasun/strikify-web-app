@@ -32,8 +32,9 @@
       "inversedBy": "products"
     },
     "product_price": {
-      "type": "decimal",
-      "required": true
+      "type": "float",
+      "required": true,
+      "default": 0.01
     }
   }
 }
