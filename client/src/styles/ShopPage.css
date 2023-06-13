@@ -1,0 +1,11 @@
+@media (max-width: 280px){
+    .product-form{
+        width: min-content;
+    }
+
+    h3{
+        text-align: center;
+    }
+
+    
+}

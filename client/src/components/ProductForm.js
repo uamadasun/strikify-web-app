@@ -5,6 +5,7 @@ import { getToken } from "../helpers";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import '../styles/ShopPage.css'
 
 // TODO: Figure out why form submits fine the first time but 400 error second time (
 // SOLVED WHEN I REMOVED PRODUCT_IMAGE, FIND OUT WHY. ERROR MSG: strapi error select count(t0.id) as count from public.files as t0 where (t0.id in ($1)) limit $2 - invalid input syntax for type integer:
@@ -94,7 +95,7 @@ const ProductForm = (props) => {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-auto mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none product-form">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 rounded-t">
                   <h3 className="text-2xl font-semibold text-black">

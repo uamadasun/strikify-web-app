@@ -43,9 +43,16 @@
 
         top: 60px;
     }
-    .shops{
+
+    .shop-form{
         margin-top: 5rem;
     }
+
+    .shops{
+        margin-top: 1rem;
+    }
+
+    
 
   }
 
@@ -70,11 +77,22 @@
         height: 12rem;
     }
 
+    .shop-form{
+        margin-top: 1rem;
+    }
+
   }
 
   @media (max-width:330px){
     .shop-input{
         width: 15rem;
+    }
+
+  }
+
+  @media (max-width:280px){
+    .shop-form{
+        margin-top: 3rem;
     }
 
   }

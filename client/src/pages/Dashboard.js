@@ -82,8 +82,32 @@ const Dashboard = () => {
       <div className="profile-pic">
         <UserProfilePic username={user.username} />
       </div>
+
+      {/* CREATE SHOP FORM */}
+      <div className="flex justify-center mt-40 px-8 flex-auto shop-form">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <div className="w-max ">
+            <label htmlFor="shop_name" className="sr-only ">
+              Shop Name
+            </label>
+            <input
+              type="text"
+              name="shop_name"
+              id="shop_name"
+              className="w-80 shop-input block bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              placeholder="Shop Name..."
+              required
+              onChange={handleInputChange}
+            />
+            <input type="hidden" name="owner" id="owner" />
+          </div>
+          <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 hover:bg-white text-black">
+            Create Shop
+          </button>
+        </form>
+      </div>
       <>
-        <div className={shops.length > 0 ? "mt-40 h-50 shops overflow-auto" : "mt-40 h-10 shops overflow-auto"}>
+        <div className="mt-10 h-10 shops overflow-auto">
           {shops.length > 0 ? (
             <div className="mt-30 max-w-md mx-auto">
               <ul className="divide-y divide-white/5">
@@ -122,29 +146,7 @@ const Dashboard = () => {
         </div>
       </>
 
-      {/* CREATE SHOP FORM */}
-      <div className="flex justify-center px-8 flex-auto">
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <div className="w-max ">
-            <label htmlFor="shop_name" className="sr-only ">
-              Shop Name
-            </label>
-            <input
-              type="text"
-              name="shop_name"
-              id="shop_name"
-              className="w-80 shop-input block bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="Shop Name..."
-              required
-              onChange={handleInputChange}
-            />
-            <input type="hidden" name="owner" id="owner" />
-          </div>
-          <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 text-black">
-            Create Shop
-          </button>
-        </form>
-      </div>
+      
     </div>
   );
 };
