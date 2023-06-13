@@ -3,8 +3,9 @@ import Loader from "../components/Loader";
 import axios from "axios";
 import { API, BEARER } from "../constant";
 import { getToken } from "../helpers";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
+import defaultProduct from "../assets/defaultProduct.png";
 
 const ShopPage = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,14 @@ const ShopPage = () => {
   const { id } = useParams();
   // const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
   const [showModal, setShowModal] = useState(false);
+  // todo: show edit modal
+  const [showEditModel, setShowEditModal] = useState(false);
+
+  // Number formatter
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   const fetchShopAndProducts = async () => {
     setLoading(true);
@@ -39,6 +48,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     fetchShopAndProducts();
+    console.log("products:", products);
   }, []);
 
   const handleFormClose = () => {
@@ -82,7 +92,123 @@ const ShopPage = () => {
           )}
         </div>
       ) : (
-        <p className="text-center mt-5">You have products</p>
+        <>
+          <div className="flex justify-center">
+            {showModal ? (
+              <ProductForm
+                theShop={shopId}
+                onClose={handleFormClose}
+                onSubmit={handleFormSubmit}
+                showModal={showModal}
+                setShowModal={setShowModal}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="sm:flex sm:items-center">
+              <div className="sm:flex-auto">
+                <h2 className="text-base font-semibold  text-gray-100">
+                  Products
+                </h2>
+                
+              </div>
+              <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2">
+                <button
+                  type="button"
+                  className="block rounded-md bg-yellow-300 px-3 py-2 text-center text-sm font-semibold text-black shadow-sm hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={() => setShowModal(true)}
+                >
+                  Add Product
+                </button>
+                <button
+                  type="button"
+                  className="block rounded-md bg-green-400 px-3 py-2 text-center text-sm font-semibold text-black shadow-sm hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  
+                >
+                  New Order
+                </button>
+              </div>
+            </div>
+            <div className="mt-8 flow-root">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table className="min-w-full divide-y divide-gray-100">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className=" pl-4 pr-3 text-left text-sm font-semibold text-gray-100 sm:pl-0"
+                        >
+                          Name
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3  text-left text-sm font-semibold text-gray-100"
+                        >
+                          Price
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="relative  pl-3 pr-4 sm:pr-0"
+                        >
+                          <span className="sr-only">Edit</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 ">
+                      {products.map((product) => (
+                        <tr key={product.id}>
+                          <td className="whitespace-nowrap py-1 pl-4 pr-3 text-sm sm:pl-0">
+                            <div className="flex items-center">
+                              <div className="h-11 w-11 flex-shrink-0 ">
+                                <img
+                                  className="h-11 w-11 rounded-full"
+                                  src={
+                                    product.attributes.product_image
+                                      ? product.attributes.product_image
+                                      : defaultProduct
+                                  }
+                                  alt={`${product.attributes.product_name}`}
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <div className="font-medium text-gray-100">
+                                  {product.attributes.product_name}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="whitespace-nowrap px-3 py-1 text-sm text-gray-100">
+                            {formatter.format(product.attributes.product_price)}
+                          </td>
+                          <td className="relative whitespace-nowrap py-1 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                            <Link
+                              to={`/product/${product.id}`}
+                              className="text-yellow-500 font-semibold mr-3 hover:text-yellow-300"
+                            >
+                              Edit
+                            </Link>
+                            <Link
+                              to={`#`}
+                              className="text-red-500 font-semibold mr-3  hover:text-red-400"
+                            >
+                              Delete
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
