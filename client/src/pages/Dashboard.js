@@ -84,9 +84,9 @@ const Dashboard = () => {
       </div>
 
       {/* CREATE SHOP FORM */}
-      <div className="flex justify-center mt-40 px-8 flex-auto shop-form">
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <div className="w-max ">
+      <div className="flex justify-center align-middle mt-40 mx-auto p-1 shop-form w-full gap-2">
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <div>
             <label htmlFor="shop_name" className="sr-only ">
               Shop Name
             </label>
@@ -94,14 +94,14 @@ const Dashboard = () => {
               type="text"
               name="shop_name"
               id="shop_name"
-              className="w-80 shop-input block bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="shop-input bg-white rounded-md border-0 py-1.5 text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Shop Name..."
               required
               onChange={handleInputChange}
             />
             <input type="hidden" name="owner" id="owner" />
           </div>
-          <button className="btn btn-sm mt-2 mx-auto bg-yellow-300 hover:bg-white text-black">
+          <button className="btn btn-sm w-min mx-auto mt-0.5 bg-yellow-300 hover:bg-white text-black">
             Create Shop
           </button>
         </form>

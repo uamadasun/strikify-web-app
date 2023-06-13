@@ -84,8 +84,8 @@
   }
 
   @media (max-width:330px){
-    .shop-input{
-        width: 15rem;
+    .shop-form{
+        max-width: min-content;
     }
 
   }
