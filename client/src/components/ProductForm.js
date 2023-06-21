@@ -20,6 +20,7 @@ const ProductForm = (props) => {
   const { theShop, onClose, showModal, setShowModal } = props;
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  console.log("the shop from form: ", theShop)
 
   // react hook form
   const {
