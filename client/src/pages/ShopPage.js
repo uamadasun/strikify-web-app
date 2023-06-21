@@ -17,6 +17,7 @@ const ShopPage = () => {
   const [showModal, setShowModal] = useState(false);
   // todo: show edit modal
   const [showEditModel, setShowEditModal] = useState(false);
+  // console.log("products:", products);
 
   // Number formatter
   const formatter = new Intl.NumberFormat("en-US", {
@@ -24,6 +25,7 @@ const ShopPage = () => {
     currency: "USD",
   });
 
+  // Function to fetch shops and products
   const fetchShopAndProducts = async () => {
     setLoading(true);
 
@@ -34,13 +36,15 @@ const ShopPage = () => {
         },
       });
       const shopData = shopResponse.data.data.attributes;
-      console.log("Shop data: ", shopResponse.data.data.attributes)
+      console.log("Shop data: ", shopResponse.data.data.attributes);
       const shopId = shopResponse.data.data.id;
-      console.log("Shop ID: ", shopResponse.data.data.id)
+      console.log("Shop ID: ", shopResponse.data.data.id);
       const shopProducts = shopResponse.data.data.attributes.products.data;
-      console.log("Fetched Products: ", shopResponse.data.data.attributes.products.data)
+      console.log(
+        "Fetched Products: ",
+        shopResponse.data.data.attributes.products.data
+      );
 
-      
       await setShop(shopData);
       setShopId(shopId);
       await setProducts(shopProducts);
@@ -53,7 +57,6 @@ const ShopPage = () => {
 
   useEffect(() => {
     fetchShopAndProducts();
-    console.log("products:", products);
   }, []);
 
   const handleFormClose = () => {
@@ -64,6 +67,23 @@ const ShopPage = () => {
   const handleFormSubmit = async () => {
     // Trigger a re-render by fetching updated data
     await fetchShopAndProducts();
+  };
+
+  const deleteProduct = async (productId) => {
+    try {
+      const deleteResponse = await axios.delete(
+        `${API}/products/${productId}`,
+        {
+          headers: {
+            Authorization: `${BEARER} ${getToken()}`,
+          },
+        }
+      );
+      fetchShopAndProducts();
+      console.log("successful deletion");
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
   };
 
   if (loading) {
@@ -118,7 +138,6 @@ const ShopPage = () => {
                 <h2 className="text-base font-semibold  text-gray-100">
                   Products
                 </h2>
-                
               </div>
               <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex gap-2">
                 <button
@@ -131,7 +150,6 @@ const ShopPage = () => {
                 <button
                   type="button"
                   className="block rounded-md bg-green-400 px-3 py-2 text-center text-sm font-semibold text-black shadow-sm hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  
                 >
                   New Order
                 </button>
@@ -156,10 +174,7 @@ const ShopPage = () => {
                           Price
                         </th>
 
-                        <th
-                          scope="col"
-                          className="relative  pl-3 pr-4 sm:pr-0"
-                        >
+                        <th scope="col" className="relative  pl-3 pr-4 sm:pr-0">
                           <span className="sr-only">Edit</span>
                         </th>
                       </tr>
@@ -198,12 +213,14 @@ const ShopPage = () => {
                             >
                               Edit
                             </Link>
-                            <Link
-                              to={`#`}
+                            <button
+                              onClick={() => {
+                                deleteProduct(product.id);
+                              }}
                               className="text-red-500 font-semibold mr-3  hover:text-red-400"
                             >
                               Delete
-                            </Link>
+                            </button>
                           </td>
                         </tr>
                       ))}
