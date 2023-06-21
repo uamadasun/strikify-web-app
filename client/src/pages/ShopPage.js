@@ -34,11 +34,16 @@ const ShopPage = () => {
         },
       });
       const shopData = shopResponse.data.data.attributes;
+      console.log("Shop data: ", shopResponse.data.data.attributes)
       const shopId = shopResponse.data.data.id;
+      console.log("Shop ID: ", shopResponse.data.data.id)
       const shopProducts = shopResponse.data.data.attributes.products.data;
-      setShop(shopData);
+      console.log("Fetched Products: ", shopResponse.data.data.attributes.products.data)
+
+      
+      await setShop(shopData);
       setShopId(shopId);
-      setProducts(shopProducts);
+      await setProducts(shopProducts);
     } catch (error) {
       console.error("Error fetching shop and products:", error);
     } finally {
