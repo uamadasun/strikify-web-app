@@ -6,17 +6,20 @@ import { getToken } from "../helpers";
 import { Link, useParams } from "react-router-dom";
 import ProductForm from "../components/ProductForm";
 import defaultProduct from "../assets/defaultProduct.png";
+import EditProductForm from "../components/EditProductForm";
 
 const ShopPage = () => {
   const [loading, setLoading] = useState(false);
   const [shop, setShop] = useState({});
   const [shopId, setShopId] = useState(0);
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
+
   const { id } = useParams();
   // const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
   const [showModal, setShowModal] = useState(false);
   // todo: show edit modal
-  const [showEditModel, setShowEditModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   // console.log("products:", products);
 
   // Number formatter
@@ -61,7 +64,7 @@ const ShopPage = () => {
 
   const handleFormClose = () => {
     handleFormSubmit();
-    setShowModal(false);
+    (showModal ? setShowModal(false) : setShowEditModal(false))
   };
 
   const handleFormSubmit = async () => {
@@ -207,12 +210,27 @@ const ShopPage = () => {
                             {formatter.format(product.attributes.product_price)}
                           </td>
                           <td className="relative whitespace-nowrap py-1 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <Link
-                              to={`/product/${product.id}`}
+                            <button
                               className="text-yellow-500 font-semibold mr-3 hover:text-yellow-300"
+                              onClick={() => setShowEditModal(true)}
                             >
                               Edit
-                            </Link>
+                            </button>
+                            <div className="flex justify-center">
+                              {showEditModal ? (
+                                <EditProductForm
+                                  theShop={shopId}
+                                  onClose={handleFormClose}
+                                  onSubmit={handleFormSubmit}
+                                  showEditModal={showEditModal}
+                                  setShowEditModal={setShowEditModal}
+                                  product={product}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
+
                             <button
                               onClick={() => {
                                 deleteProduct(product.id);
