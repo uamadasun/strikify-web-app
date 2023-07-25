@@ -15,15 +15,19 @@ const Dashboard = () => {
   const [shops, setShops] = useState([]);
   const navigate = useNavigate();
   const [shop, setShop] = useState({ owner: user });
+  console.log("User from dashboard: ", user)
 
+  // Input change handler
   const handleInputChange = (e) => {
     const value = e.target.value;
     console.log(e.target.value);
     setShop((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
 
+// SUbmit handler 
   const handleSubmit = async (e) => {
     console.log("form submitted");
+    console.log(shop)
 
     e.preventDefault();
     setLoading(true);
@@ -50,6 +54,7 @@ const Dashboard = () => {
       });
   };
 
+  // Fetch user's current shops
   const fetchShops = async () => {
     setLoading(true);
 
@@ -59,7 +64,6 @@ const Dashboard = () => {
           Authorization: `${BEARER} ${getToken()}`,
         },
       });
-      // console.log("res:", res.data);
 
       setShops(res.data.shops);
     } catch (error) {
@@ -84,7 +88,7 @@ const Dashboard = () => {
       </div>
 
       {/* CREATE SHOP FORM */}
-      <div className="flex justify-center align-middle mt-40 mx-auto p-1 shop-form w-full gap-2">
+      <div className="flex justify-center align-middle mt-40 mx-auto p-4 shop-form w-full gap-2">
         <form onSubmit={handleSubmit} className="flex gap-2">
           <div>
             <label htmlFor="shop_name" className="sr-only ">
@@ -99,18 +103,20 @@ const Dashboard = () => {
               required
               onChange={handleInputChange}
             />
-            <input type="hidden" name="owner" id="owner" />
+            <input type="hidden" name="owner" id="owner" value={user}/>
           </div>
           <button className="btn btn-sm w-min mx-auto mt-0.5 bg-yellow-300 hover:bg-white text-black">
             Create Shop
           </button>
         </form>
       </div>
+
+      {/* LIST OF SHOPS */}
       <>
-        <div className="mt-10 h-30 shops overflow-auto">
+        <div className=" h-30 shops overflow-scroll w-1/2 mx-auto border border-solid border-white">
           {shops.length > 0 ? (
             <div className="mt-30 max-w-md mx-auto">
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-white-5">
                 {shops.map((shop) => (
                   <Link to={`/shops/${shop.id}`} key={shop.id}>
                     <li className="relative flex items-center space-x-4 py-4">

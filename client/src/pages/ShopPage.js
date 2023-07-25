@@ -14,13 +14,9 @@ const ShopPage = () => {
   const [shopId, setShopId] = useState(0);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
-
   const { id } = useParams();
-  // const [showForm, setShowForm] = useState(false); // State to control the visibility of the form
   const [showModal, setShowModal] = useState(false);
-  // todo: show edit modal
   const [showEditModal, setShowEditModal] = useState(false);
-  // console.log("products:", products);
 
   // Number formatter
   const formatter = new Intl.NumberFormat("en-US", {
@@ -28,7 +24,7 @@ const ShopPage = () => {
     currency: "USD",
   });
 
-  // Function to fetch shops and products
+  // Function to fetch shop and shop's products
   const fetchShopAndProducts = async () => {
     setLoading(true);
 
@@ -154,7 +150,7 @@ const ShopPage = () => {
                   type="button"
                   className="block rounded-md bg-green-400 px-3 py-2 text-center text-sm font-semibold text-black shadow-sm hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  New Order
+                  <Link to='/order'> New Order</Link>
                 </button>
               </div>
             </div>

@@ -11,6 +11,7 @@ import { API, BEARER } from "./constant";
 import { getToken } from "./helpers";
 import ShopPage from "./pages/ShopPage";
 import Background from "./components/Background";
+import NewOrder from "./pages/NewOrder";
 export const ShopContext = createContext();
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="registration" element={<Registration />} />
           <Route path="dashboard/:id" element={<Dashboard />}/>
           <Route path="shops/:id" element={<ShopPage />}/>
+          <Route path="order" element={<NewOrder />}/>
         </Routes>
         </ShopContext.Provider>
         </Background>
